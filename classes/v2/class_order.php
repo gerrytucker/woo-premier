@@ -2,7 +2,7 @@
 /**
  * NPPP2U Order API Client
  */
-class WOO_Order {
+class Woo_Order {
 
     /** Version */
     const VERSION = "2.0.0";
