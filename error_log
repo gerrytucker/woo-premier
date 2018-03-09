@@ -1,8 +1,0 @@
-[08-Mar-2018 20:22:16 UTC] PHP Fatal error:  Uncaught Error: Call to a member function date() on null in /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/classes/class_customer.php:232
-Stack trace:
-#0 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/classes/class_customer.php(53): Woo_Customer->get_customer_completed_orders('4')
-#1 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/classes/class_customer.php(80): Woo_Customer->get_customer('4')
-#2 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/woo-nppp2u.php(130): Woo_Customer->get_customer_by_email('lynda@nppp2u.co...')
-#3 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api/class-wp-rest-server.php(936): Woo_NPPP2U::np_get_customer_by_email(Object(WP_REST_Request))
-#4 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api/class-wp-rest-server.php(321): WP_REST_Server->dispatch(Object(WP_REST_Request))
-#5 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/r in /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/classes/class_customer.php on line 232
