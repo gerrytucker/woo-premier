@@ -183,7 +183,7 @@ class Woo_Order {
    */
   static function remove_order_line( $order_item_id ) {
 
-    if ( wc_delete_order_item( item_id ) ) {
+    if ( wc_delete_order_item( $order_item_id ) ) {
       return array( 'status' => 'ok' );
     } else {
       return array( 'status' => 'error' );
@@ -196,7 +196,7 @@ class Woo_Order {
    */
   function order_has_item( $order_id, $product_id ) {
 
-    $order = new WC_Order();
+    $order = new WC_Order( $order_id );
     $items = $order->get_items();
     foreach ( $items as $item ) {
       if ( $item['product_id'] == $product_id ) {
