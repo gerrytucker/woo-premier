@@ -6,7 +6,64 @@ class Woo_Order {
      * Constructoer
      */
     function __constructor() {}
-    
+
+    /**
+     * Set address (billing/shipping)
+     */
+    function set_address( $order, $address, $address_type="billing" ) {
+
+      $order_address = array();
+
+      if ( $address_type == "billing" ) {
+        $order_address = array(
+          'first_name'    => $address['first_name'],
+          'last_name'     => $address['last_name'],
+          'company'       => $address['company'],
+          'email'         => $address['email'],
+          'phone'         => $address['phone'],
+          'address_1'     => $address['address_1'],
+          'address_2'     => $address['address_2'],
+          'city'          => $address['city'],
+          'state'         => $address['state'],
+          'postcode'      => $address['postcode'],
+          'country'       => $address['country'],
+        );
+      }
+      else {
+        $order_address = array(
+          'first_name'    => $address['first_name'],
+          'last_name'     => $address['last_name'],
+          'company'       => $address['company'],
+          'address_1'     => $address['address_1'],
+          'address_2'     => $address['address_2'],
+          'city'          => $address['city'],
+          'state'         => $address['state'],
+          'postcode'      => $address['postcode'],
+          'country'       => $address['country'],
+        );
+      }
+
+      return $order->set_address( $order_address, $address_type );
+    }
+
+    /**
+     * Set paymemt method
+     */
+    function set_payment_method( $order, $payment_method="cod" ) {
+
+      return $order->set_payment_method( $payment_method );
+
+    }
+
+    /**
+     * Set created via
+     */
+    function set_created_via( $order, $created_via="app" ) {
+
+      return $order->set_created_via( $app );
+
+    }
+
     /**
      * Create order
      */
@@ -15,50 +72,48 @@ class Woo_Order {
 
         $customer = $order_details['customer'];
 
-        // Billing address
-        $customer_billing_address = $customer['billing'];
-        $order_billing_address = array(
-            'first_name'    => $customer_billing_address['first_name'],
-            'last_name'     => $customer_billing_address['last_name'],
-            'company'       => $customer_billing_address['company'],
-            'email'         => $customer_billing_address['email'],
-            'phone'         => $customer_billing_address['phone'],
-            'address_1'     => $customer_billing_address['address_1'],
-            'address_2'     => $customer_billing_address['address_2'],
-            'city'          => $customer_billing_address['city'],
-            'state'         => $customer_billing_address['state'],
-            'postcode'      => $customer_billing_address['postcode'],
-            'country'       => $customer_billing_address['country'],
-        );
-        // Shipping address
-        $customer_shipping_address = $customer['shipping'];
-        $order_shipping_address = array(
-            'first_name'    => $customer_shipping_address['first_name'],
-            'last_name'     => $customer_shipping_address['last_name'],
-            'company'       => $customer_shipping_address['company'],
-            'address_1'     => $customer_shipping_address['address_1'],
-            'address_2'     => $customer_shipping_address['address_2'],
-            'city'          => $customer_shipping_address['city'],
-            'state'         => $customer_shipping_address['state'],
-            'postcode'      => $customer_shipping_address['postcode'],
-            'country'       => $customer_shipping_address['country'],
-        );
-        
         // Create the order
         $order = wc_create_order();
 
         // Set customer
         $order->set_customer_id(is_numeric($customer['id']) ? absint($customer['id']) : 0);
 
-        // Set addresses
-        $order->set_address( $customer_billing_address, 'billing');
-        $order->set_address( $customer_shipping_address, 'shipping');
+        // Set billing address
+        // Billing address
+        $order_billing_address = array(
+          'first_name'    => $customer['billing']['first_name'],
+          'last_name'     => $customer['billing']['last_name'],
+          'company'       => $customer['billing']['company'],
+          'email'         => $customer['billing']['email'],
+          'phone'         => $customer['billing']['phone'],
+          'address_1'     => $customer['billing']['address_1'],
+          'address_2'     => $customer['billing']['address_2'],
+          'city'          => $customer['billing']['city'],
+          'state'         => $customer['billing']['state'],
+          'postcode'      => $customer['billing']['postcode'],
+          'country'       => $customer['billing']['country'],
+        );
+        set_address( $order, $customer_billing_address, 'billing');
+
+        // Shipping address
+        $order_shipping_address = array(
+          'first_name'    => $customer['shipping']['first_name'],
+          'last_name'     => $customer['shipping']['last_name'],
+          'company'       => $customer['shipping']['company'],
+          'address_1'     => $customer['shipping']['address_1'],
+          'address_2'     => $customer['shipping']['address_2'],
+          'city'          => $customer['shipping']['city'],
+          'state'         => $customer['shipping']['state'],
+          'postcode'      => $customer['shipping']['postcode'],
+          'country'       => $customer['shipping']['country'],
+        );
+        set_address( $order, $customer_shipping_address, 'shipping');
 
         // Set payment method
-        $order->set_payment_method('cod');
+        set_payment_method($order, 'cod');
 
         // Set created by to 'app'
-        $order-set_created_via( 'app' );
+        set_created_via( $order, 'app' );
         
         // Get the order number
         $order_id = $order->get_order_number();
