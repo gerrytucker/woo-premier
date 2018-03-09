@@ -57,7 +57,7 @@ class WOO_Product {
 
     foreach ( $products as $product ) {
       // Get product thumbnail
-      $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id(), 'thumbnail', false );
+      $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id(), 'thumbnail', false ) );
 
       $response[] = array(
         'id'              => $product->get_id(),
