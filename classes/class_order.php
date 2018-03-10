@@ -13,13 +13,13 @@ class Woo_Order {
   public function __constructor() {}
 
   /**
-   * Set billing address
+   * Set address
    * @since 2.0.0
    * @param obj order object
    * @param arr billing address
    * @param str address type (billing|shipping)
    */
-  private function set_billing_address( $order, $address=array(), $type='billing' ) {
+  private function set_address( $order, $address=array(), $type='billing' ) {
 
     return $order->set_address( $address, $type );
 
