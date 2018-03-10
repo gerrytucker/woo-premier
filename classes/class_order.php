@@ -48,4 +48,18 @@ class Woo_Order {
     return wc_get_order( is_numeric($order_number) ? absint($order_number) : 0 );
   }
 
+  /**
+   * Add item to order
+   * @since 2.0.0
+   */
+  public function add_item ( $customer_id, $order_number=0, $item=array() )  {
+
+    $woo = new Woo_Customer();
+    $customer = $woo->get_customer( $customer_id );
+
+    if ( $order_number == 0 ) {
+      $order_number = self::create_order( $customer );
+    }
+
+  }
 }

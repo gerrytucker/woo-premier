@@ -14,9 +14,9 @@
  */
 
 require_once('woocommerce-api.php');
-require_once('classes/v2/class_customer.php');
-require_once('classes/v2/class_product.php');
-require_once('classes/v2/class_order.php');
+require_once('classes/class_customer.php');
+require_once('classes/class_product.php');
+require_once('classes/class_order.php');
 
 
 class Woo_NPPP2U {
@@ -41,8 +41,8 @@ class Woo_NPPP2U {
    */
 	public function woo_register_api_hooks() {
 
-    register_customer_routes();
-    register_product_routes();
+    self::register_customer_routes();
+    self::register_product_routes();
 
 	}		
 
@@ -62,7 +62,19 @@ class Woo_NPPP2U {
 		register_rest_route( 'np/v2', 'customer/email/', array(
 			'methods'	=> 'POST',
 			'callback'	=> array( 'Woo_NPPP2U', 'woo_get_customer_by_email' )
-    ));
+		));
+    
+		// Get customer orders (processing/completed)
+		register_rest_route( 'np/v2', 'customer/orders/completed', array(
+			'methods'	=> 'POST',
+			'callback'	=> array( 'Woo_NPPP2U', 'woo_get_customer_completed_orders' )
+		));
+    
+		// Get customer orders (pending="open")
+		register_rest_route( 'np/v2', 'customer/orders/open', array(
+			'methods'	=> 'POST',
+			'callback'	=> array( 'Woo_NPPP2U', 'woo_get_customer_open_orders' )
+		));
     
   }
 
@@ -110,7 +122,7 @@ class Woo_NPPP2U {
 	/**
 	 * Get a Customer By Email
 	 *
-   * @since 2.0.0
+	 * @since 2.0.0
 	 * @param WP_REST_Request $request
 	 * @return void
 	 */
@@ -129,10 +141,48 @@ class Woo_NPPP2U {
 
 	}
 
+  /**
+   * Get customer open orders
+   * 
+   * @since 2.0.0
+   * @param int customer id
+   */
+  static function woo_get_customer_open_orders( WP_REST_Request $request ) {
+    $id = $request['id'];
+
+    $woo = new Woo_Customer();
+    if ( $orders = $woo->get_customer_open_orders( $id ) ) {
+      return new WP_REST_Response( $orders, 200 );
+    }
+    else {
+      return new WP_REST_Response( array(), 404 );
+    }
+
+  }
+
+  /**
+   * Get customer completed orders
+   * 
+   * @since 2.0.0
+   * @param int customer id
+   */
+  static function woo_get_customer_completed_orders( WP_REST_Request $request ) {
+    $id = $request['id'];
+
+    $woo = new Woo_Customer();
+    if ( $orders = $woo->get_customer_orders( $id ) ) {
+      return new WP_REST_Response( $orders, 200 );
+    }
+    else {
+      return new WP_REST_Response( array(), 404 );
+    }
+
+  }
+
 	/**
 	 * Get products
 	 *
-   * @since 2.0.0
+     * @since 2.0.0
 	 * @param WP_REST_Request $request
 	 * @return void
 	 */
