@@ -87,8 +87,8 @@ class Woo_Order {
           'regular_price' => $product->get_regular_price(),
           'sale_price'    => $product->get_sale_price(),
           'thumbnail_url' => $thumbnail[0],
-          'qty'           => $order->get_item_meta( $item_id, '_qty', true ),
-          'total'         => $order->get_item_meta( $item_id, '_line_total', true )
+          'qty'           => $item_data['qty'],
+          'total'         => $item_data['total'],
         );
         $product_in_order = true;
       }

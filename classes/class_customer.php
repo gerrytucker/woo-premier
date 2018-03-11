@@ -161,6 +161,7 @@ class Woo_Customer {
     $response = array(); $response_items = array();
 
     $orders = wc_get_orders( array( 'customer_id' => $id, 'status' => array('pending'), 'orderby' => 'ID' ) );
+    $order_qty = 0;
     foreach ( $orders as $order ) {
       $date_created = $order->get_date_created();
       $response_items = array();
@@ -174,9 +175,10 @@ class Woo_Customer {
           'regular_price' => $product->get_regular_price(),
           'sale_price'    => $product->get_sale_price(),
           'thumbnail_url' => $thumbnail[0],
-          'qty'           => $order->get_item_meta( $item_id, '_qty', true ),
-          'total'         => $order->get_item_meta( $item_id, '_line_total', true )
+          'qty'           => $item_data['qty'],
+          'total'         => $item_data['total']
         );
+        $order_qty = $order_qty + absint($item_data['qty']);
       }
       $response[] = array(
         'id'                => $order->get_id(),
@@ -208,7 +210,8 @@ class Woo_Customer {
           'postcode' 		    => $order->get_shipping_postcode(),
           'country' 		    => $order->get_shipping_country()
         ),
-        'items'             => $response_items  
+        'items'             => $response_items,
+        'qty'               => $order_qty
       );
     }
 
