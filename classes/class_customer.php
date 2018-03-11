@@ -112,7 +112,6 @@ class Woo_Customer {
           'qty'             => $item->get_quantity(),
           'total'           => $item->get_total(),
           'thumbnail_url'   => $thumbnail[0],
-          'meta_data'       => $product->get_meta_data()          );
       }
       $response[] = array(
         'id'                => $order->get_id(),
@@ -177,7 +176,7 @@ class Woo_Customer {
           'qty'             => $item->get_quantity(),
           'total'           => $item->get_total(),
           'thumbnail_url'   => $thumbnail[0],
-          'meta_data'       => $product->get_meta_data()          );
+        );
       }
       $response[] = array(
         'id'                => $order->get_id(),

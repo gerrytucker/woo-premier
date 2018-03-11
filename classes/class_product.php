@@ -32,7 +32,6 @@ class Woo_Product {
         'regular_price'   => $product->get_regular_price(),
         'sale_price'      => $product->get_sale_price(),
         'thumbnail_url'   => $thumbnail[0],
-        'meta_data'       => $product->get_meta_data()
       );
     }
 
@@ -66,7 +65,6 @@ class Woo_Product {
         'regular_price'   => $product->get_regular_price(),
         'sale_price'      => $product->get_sale_price(),
         'thumbnail_url'   => $thumbnail[0],
-        'meta_data'       => $product->get_meta_data()
       );
     }
 

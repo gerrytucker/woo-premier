@@ -62,4 +62,52 @@ class Woo_Order {
     }
 
   }
+
+  /**
+   * Get product in order
+   * 
+   * @since 2.0.0
+   * @param int order_id
+   * @param int product_id
+   */
+  public function product_in_order( $order_id, $product_id ) {
+    $product_in_order = false;
+    $response_product = array();
+
+    $product = wc_get_product( $product_id );
+    $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id(), 'thumbnail', false ) );
+
+    $order = wc_get_order( $order_id );
+    foreach ( $order->get_items() as $item_id=> $item_data ) {
+      if ( $item_data['product_id'] == $product_id ) {
+        $response_product[] = array(
+          'id'            => $item_data['product_id'],
+          'name'          => $item_data['name'],
+          'price'         => $product->get_price(),
+          'regular_price' => $product->get_regular_price(),
+          'sale_price'    => $product->get_sale_price(),
+          'thumbnail_url' => $thumbnail[0],
+          'qty'           => $order->get_item_meta( $item_id, '_qty', true ),
+          'total'         => $order->get_item_meta( $item_id, '_line_total', true )
+        );
+        $product_in_order = true;
+      }
+    }
+    if ( $product_in_order == false ) {
+      $response_product[] = array(
+        'id'            => $product->get_id(),
+        'name'          => $product->get_name(),
+        'price'         => $product->get_price(),
+        'regular_price' => $product->get_regular_price(),
+        'sale_price'    => $product->get_sale_price(),
+        'thumbnail_url' => $thumbnail[0],
+        'qty'           => 0,
+        'total'         => 0,
+      );
+    }
+    
+    return $response_product;
+    
+  }
+
 }

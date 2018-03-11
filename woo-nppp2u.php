@@ -85,18 +85,24 @@ class Woo_NPPP2U {
   public function register_product_routes() {
 
 		// Get Product
-		register_rest_route( 'np/v2', 'products/(?P<id>\d+)', array(
+		register_rest_route( 'np/v2', 'product/(?P<id>\d+)', array(
 			'methods'	=> 'POST',
 			'callback'	=> array( 'Woo_NPPP2U', 'woo_get_product' )
-    ));
+		));
 
 		// Get Products
 		register_rest_route( 'np/v2', 'products/', array(
 			'methods'	=> 'POST',
 			'callback'	=> array( 'Woo_NPPP2U', 'woo_get_products' )
 		));
-	
-  }
+
+		// Get product in order
+		register_rest_route( 'np/v2', 'order/(?P<order_id>\d+)/product/(?P<product_id>\d+)', array(
+			'methods'	=> 'POST',
+			'callback'	=> array( 'Woo_NPPP2U', 'woo_get_product_in_order' )
+		));
+		
+	}	
 
 	/**
 	 * Get a Customer
@@ -220,6 +226,28 @@ class Woo_NPPP2U {
 		}
 	}
 
+	/**
+	 * Get product in order
+	 * 
+	 * @since 2.0.0
+	 * @param int order_id
+	 * @param int product_id
+	 */
+	static function woo_get_product_in_order( WP_REST_Request $request ) {
+		$order_id = $request['order_id'];
+		$product_id = $request['product_id'];
+		
+		$woo = new Woo_Order();
+		$product = $woo->product_in_order( $order_id, $product_id );
+		
+		return new WP_REST_Response( $product, 200 );
+	}
+
+	/**
+	 * Initialize plugin
+	 * 
+	 * @since 2.0.0
+	 */
 	static function init() {
 		register_activation_hook( __FILE__, array( 'Woo_NPPP2U', 'woo_activate' ) );
 		add_action( 'rest_api_init', array( 'Woo_NPPP2U', 'woo_register_api_hooks' ) );
