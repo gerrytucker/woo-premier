@@ -1,18 +1,9 @@
-[11-Mar-2018 20:07:16 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Woo_Order::product_in_order() in /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/woo-nppp2u.php:241
+[11-Mar-2018 20:35:51 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_product() on integer in /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/classes/class_customer.php:169
 Stack trace:
-#0 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api/class-wp-rest-server.php(936): Woo_NPPP2U::woo_get_product_in_order(Object(WP_REST_Request))
-#1 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api/class-wp-rest-server.php(321): WP_REST_Server->dispatch(Object(WP_REST_Request))
-#2 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api.php(266): WP_REST_Server->serve_request('/np/v2/order/21...')
-#3 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/class-wp-hook.php(286): rest_api_loaded(Object(WP))
-#4 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
-#5 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/plugin.php(515): WP_Hook->do_action(Array)
-#6 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/w in /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/woo-nppp2u.php on line 241
-[11-Mar-2018 20:09:59 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Woo_Order::product_in_order() in /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/woo-nppp2u.php:241
-Stack trace:
-#0 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api/class-wp-rest-server.php(936): Woo_NPPP2U::woo_get_product_in_order(Object(WP_REST_Request))
-#1 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api/class-wp-rest-server.php(321): WP_REST_Server->dispatch(Object(WP_REST_Request))
-#2 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api.php(266): WP_REST_Server->serve_request('/np/v2/order/21...')
-#3 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/class-wp-hook.php(286): rest_api_loaded(Object(WP))
-#4 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/class-wp-hook.php(310): WP_Hook->apply_filters(NULL, Array)
-#5 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/plugin.php(515): WP_Hook->do_action(Array)
-#6 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/w in /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/woo-nppp2u.php on line 241
+#0 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/classes/class_customer.php(61): Woo_Customer->get_customer_open_orders(4)
+#1 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/woo-nppp2u.php(120): Woo_Customer->get_customer(4)
+#2 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api/class-wp-rest-server.php(936): Woo_NPPP2U::woo_get_customer(Object(WP_REST_Request))
+#3 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api/class-wp-rest-server.php(321): WP_REST_Server->dispatch(Object(WP_REST_Request))
+#4 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api.php(266): WP_REST_Server->serve_request('/np/v2/customer...')
+#5 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/class-wp-hook.php(286): rest_api_loaded(Object(WP))
+#6 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp- in /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/classes/class_customer.php on line 169

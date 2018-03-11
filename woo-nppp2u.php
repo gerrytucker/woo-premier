@@ -97,7 +97,7 @@ class Woo_NPPP2U {
 		));
 
 		// Get product in order
-		register_rest_route( 'np/v2', 'order/(?P<order_id>\d+)/product/(?P<product_id>\d+)', array(
+		register_rest_route( 'np/v2', 'order/product/', array(
 			'methods'	=> 'POST',
 			'callback'	=> array( 'Woo_NPPP2U', 'woo_get_product_in_order' )
 		));

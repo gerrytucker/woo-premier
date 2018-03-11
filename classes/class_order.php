@@ -78,7 +78,7 @@ class Woo_Order {
     $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id(), 'thumbnail', false ) );
 
     $order = wc_get_order( $order_id );
-    foreach ( $order->get_items() as $item_id=> $item_data ) {
+    foreach ( $order->get_items() as $item => $item_data ) {
       if ( $item_data['product_id'] == $product_id ) {
         $response_product[] = array(
           'id'            => $item_data['product_id'],
