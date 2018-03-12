@@ -110,4 +110,26 @@ class Woo_Order {
     
   }
 
+  /**
+   * Remove product from order
+   * 
+   * @since 2.0.0
+   * @param int order_id
+   * @param int product_id
+   */
+  public function remove_product_from_order( $order_id, $product_id ) {
+
+    $order = new WC_Order( $order_id );
+    $customer_id = $order->get_customer_id();
+    foreach ( $order->get_items() as $item_id => $item ) {
+      if ( $item['product_id'] == $product_id ) {
+        wc_delete_order_item( $item_id );
+        $item->delete_meta_data('_qty');
+        $item->delete_meta_data('_line_total');
+      }
+    }
+    $order->calculate_totals();
+    $woo = new Woo_Customer();
+    return $woo->get_customer( $customer_id );
+  }
 }
