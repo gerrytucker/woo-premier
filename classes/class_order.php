@@ -64,6 +64,73 @@ class Woo_Order {
   }
 
   /**
+   * Get an order
+   * 
+   * @since 2.0.0
+   * @param int order_id
+   */
+  public function get_order( $order_id ) {
+    $response = array();
+
+    if ( $order = new WC_Order( $order_id ) ) {
+      $date_created = $order->get_date_created();
+      $response_items = array();
+      foreach ( $order->get_items() as $item => $item_data ) {
+        $product = wc_get_product( $item_data['product_id'] );
+        $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id(), 'thumbnail', false ) );
+        $response_items[] = array(
+          'id'            => $item_data['product_id'],
+          'name'          => $item_data['name'],
+          'price'         => $product->get_price(),
+          'regular_price' => $product->get_regular_price(),
+          'sale_price'    => $product->get_sale_price(),
+          'thumbnail_url' => $thumbnail[0],
+          'qty'           => $item_data['qty'],
+          'total'         => $item_data['total']
+        );
+        $order_qty = $order_qty + absint($item_data['qty']);
+      }
+      $response = array(
+        'id'                => $order->get_id(),
+        'date_created' 	    => $date_created->date('d M Y @ H:i:s'),
+        'status' 		        => $order->get_status(),
+        'billing_address'   => $order->get_formatted_billing_address(),
+        'billing' 		    => array(
+          'first_name' 	    => $order->get_billing_first_name(),
+          'last_name' 	    => $order->get_billing_last_name(),
+          'company' 		    => $order->get_billing_company(),
+          'address_1' 	    => $order->get_billing_address_1(),
+          'address_2' 	    => $order->get_billing_address_2(),
+          'city' 			      => $order->get_billing_city(),
+          'state' 		      => $order->get_billing_state(),
+          'postcode' 		    => $order->get_billing_postcode(),
+          'country' 		    => $order->get_billing_country(),
+          'email' 		      => $order->get_billing_email(),
+          'phone' 		      => $order->get_billing_phone(),
+        ),
+        'shipping_address'  => $order->get_formatted_shipping_address(),
+        'shipping' 	      => array(
+          'first_name' 	    => $order->get_shipping_first_name(),
+          'last_name' 	    => $order->get_shipping_last_name(),
+          'company' 		    => $order->get_shipping_company(),
+          'address_1' 	    => $order->get_shipping_address_1(),
+          'address_2' 	    => $order->get_shipping_address_2(),
+          'city' 			      => $order->get_shipping_city(),
+          'state' 		      => $order->get_shipping_state(),
+          'postcode' 		    => $order->get_shipping_postcode(),
+          'country' 		    => $order->get_shipping_country()
+        ),
+        'items'             => $response_items,
+        'qty'               => $order_qty
+      );
+      return $response;
+    } else {
+      return false;
+    }
+
+  }
+
+  /**
    * Get product in order
    * 
    * @since 2.0.0

@@ -23,12 +23,14 @@ class Woo_NPPP2U {
 
 	/**
 	 * Set up the client
+	 * 
 	 * @since 2.0.0
 	 */
 	function __constructor() {}
 
   /**
    * Activate the plugin
+   * 
    * @since 2.0.0
    */
 	public function woo_activate() {
@@ -37,17 +39,20 @@ class Woo_NPPP2U {
 
   /**
    * Register API routes
+   * 
    * @since 2.0.0
    */
 	public function woo_register_api_hooks() {
 
     self::register_customer_routes();
     self::register_product_routes();
+    self::register_order_routes();
 
 	}		
 
   /**
    * Register customer function routes
+   * 
    * @since 2.0.0
    */
   public function register_customer_routes() {
@@ -80,6 +85,7 @@ class Woo_NPPP2U {
 
   /**
    * Register product routes
+   * 
    * @since 2.0.0
    */
   public function register_product_routes() {
@@ -111,9 +117,23 @@ class Woo_NPPP2U {
 	}	
 
 	/**
+	 * Register order routes
+	 * 
+	 * @since 2.0.0
+	 */
+	public function register_order_routes() {
+
+		// Get order
+		register_rest_route( 'np/v2', 'order/(?P<id>\d+)', array(
+			'methods'	=> 'POST',
+			'callback'	=> array( 'Woo_NPPP2U', 'woo_get_order' )
+		));
+	}
+
+	/**
 	 * Get a Customer
 	 *
-   * @since 2.0.0
+	 * @since 2.0.0
 	 * @param WP_REST_Request $request
 	 * @return void
 	 */
@@ -264,6 +284,24 @@ class Woo_NPPP2U {
 		$customer = $woo->remove_product_from_order( $order_id, $product_id );
 		
 		return new WP_REST_Response( $customer, 200 );
+	}
+
+	/**
+	 * Get an order
+	 * 
+	 * @since 2.0.0
+	 * @param int order_id
+	 */
+	static function woo_get_order( WP_REST_Request $request ) {
+		$id = $request['id'];
+
+		$woo = new Woo_Order();
+		if ( $order = $woo->get_order( $id ) ) {
+			return new WP_REST_Response( $order, 200 );
+		} else {
+			return new WP_REST_Response( array(), 404 );			
+		}
+
 	}
 
 	/**
