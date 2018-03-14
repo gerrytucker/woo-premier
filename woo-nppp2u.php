@@ -109,7 +109,7 @@ class Woo_NPPP2U {
 		));
 		
 		// Remove product from order
-		register_rest_route( 'np/v2', 'order/(?P<order_id>\d+)/product/remove/(?P<product_id>\d+)', array(
+		register_rest_route( 'np/v2', 'order/(?P<order_id>\d+)/remove/(?P<product_id>\d+)', array(
 			'methods'	=> 'POST',
 			'callback'	=> array( 'Woo_NPPP2U', 'woo_remove_product_from_order' )
 		));
@@ -281,9 +281,9 @@ class Woo_NPPP2U {
 		$product_id = $request['product_id'];
 		
 		$woo = new Woo_Order();
-		$customer = $woo->remove_product_from_order( $order_id, $product_id );
+		$order = $woo->remove_product_from_order( $order_id, $product_id );
 		
-		return new WP_REST_Response( $customer, 200 );
+		return new WP_REST_Response( $order, 200 );
 	}
 
 	/**

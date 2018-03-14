@@ -1,0 +1,16 @@
+[14-Mar-2018 11:59:08 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Woo_Customer::get_order() in /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/classes/class_order.php:200
+Stack trace:
+#0 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/woo-nppp2u.php(284): Woo_Order->remove_product_from_order('215', '118')
+#1 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api/class-wp-rest-server.php(936): Woo_NPPP2U::woo_remove_product_from_order(Object(WP_REST_Request))
+#2 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api/class-wp-rest-server.php(321): WP_REST_Server->dispatch(Object(WP_REST_Request))
+#3 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api.php(266): WP_REST_Server->serve_request('/np/v2/order/21...')
+#4 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/class-wp-hook.php(286): rest_api_loaded(Object(WP))
+#5 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/class-wp-hook.php(310): WP_Hook->apply_filters(NULL, A in /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/classes/class_order.php on line 200
+[14-Mar-2018 12:00:31 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Woo_Customer::get_order() in /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/classes/class_order.php:200
+Stack trace:
+#0 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/woo-nppp2u.php(284): Woo_Order->remove_product_from_order('215', '118')
+#1 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api/class-wp-rest-server.php(936): Woo_NPPP2U::woo_remove_product_from_order(Object(WP_REST_Request))
+#2 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api/class-wp-rest-server.php(321): WP_REST_Server->dispatch(Object(WP_REST_Request))
+#3 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/rest-api.php(266): WP_REST_Server->serve_request('/np/v2/order/21...')
+#4 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/class-wp-hook.php(286): rest_api_loaded(Object(WP))
+#5 /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-includes/class-wp-hook.php(310): WP_Hook->apply_filters(NULL, A in /home/sirwalmarkin/public_html/nppp2u.co.uk/wp/wp-content/plugins/woo-nppp2u/classes/class_order.php on line 200

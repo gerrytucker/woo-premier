@@ -89,9 +89,11 @@ class Woo_Order {
           'total'         => $item_data['total']
         );
         $order_qty = $order_qty + absint($item_data['qty']);
+        $order_total = $order_total + $item_data['total'];
       }
       $response = array(
         'id'                => $order->get_id(),
+        'customer_id'       => $order->get_customer_id(),
         'date_created' 	    => $date_created->date('d M Y @ H:i:s'),
         'status' 		        => $order->get_status(),
         'billing_address'   => $order->get_formatted_billing_address(),
@@ -121,7 +123,8 @@ class Woo_Order {
           'country' 		    => $order->get_shipping_country()
         ),
         'items'             => $response_items,
-        'qty'               => $order_qty
+        'qty'               => $order_qty,
+        'total'             => $order_total
       );
       return $response;
     } else {
@@ -187,7 +190,6 @@ class Woo_Order {
   public function remove_product_from_order( $order_id, $product_id ) {
 
     $order = new WC_Order( $order_id );
-    $customer_id = $order->get_customer_id();
     foreach ( $order->get_items() as $item_id => $item ) {
       if ( $item['product_id'] == $product_id ) {
         wc_delete_order_item( $item_id );
@@ -196,7 +198,7 @@ class Woo_Order {
       }
     }
     $order->calculate_totals();
-    $woo = new Woo_Customer();
-    return $woo->get_customer( $customer_id );
+    $woo = new Woo_Order();
+    return $woo->get_order( $order_id );
   }
 }
