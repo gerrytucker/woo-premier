@@ -103,7 +103,8 @@ class Woo_Customer {
       $items = $order->get_items();
       foreach ( $items as $item ) {
         $product = $item->get_product();
-        $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id(), 'thumbnail', false ) );
+        $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
+        $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
         $response_items[] = array(
           'id'              => $item->get_product_id(),
           'name'            => $product->get_name(),
@@ -112,6 +113,7 @@ class Woo_Customer {
           'sale_price'      => $product->get_sale_price(),
           'qty'             => $item->get_quantity(),
           'total'           => $item->get_total(),
+          'medium_url'      => $medium[0],
           'thumbnail_url'   => $thumbnail[0],
         );
       }
@@ -169,13 +171,15 @@ class Woo_Customer {
       $ord = wc_get_order( $order->get_id() );
       foreach ( $ord->get_items() as $item => $item_data ) {
         $product = wc_get_product( $item_data['product_id'] );
-        $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id(), 'thumbnail', false ) );
+        $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
+        $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
         $response_items[] = array(
           'id'            => $item_data['product_id'],
           'name'          => $item_data['name'],
           'price'         => $product->get_price(),
           'regular_price' => $product->get_regular_price(),
           'sale_price'    => $product->get_sale_price(),
+          'medium_url'    => $medium[0],
           'thumbnail_url' => $thumbnail[0],
           'qty'           => $item_data['qty'],
           'total'         => $item_data['total']

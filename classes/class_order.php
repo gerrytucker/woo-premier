@@ -77,13 +77,15 @@ class Woo_Order {
       $response_items = array();
       foreach ( $order->get_items() as $item => $item_data ) {
         $product = wc_get_product( $item_data['product_id'] );
-        $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id(), 'thumbnail', false ) );
+        $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $item_data['product_id']), 'medium', false );
+        $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id()), 'thumbnail', false );
         $response_items[] = array(
           'id'            => $item_data['product_id'],
           'name'          => $item_data['name'],
           'price'         => $product->get_price(),
           'regular_price' => $product->get_regular_price(),
           'sale_price'    => $product->get_sale_price(),
+          'medium_url'    => $medium[0],
           'thumbnail_url' => $thumbnail[0],
           'qty'           => $item_data['qty'],
           'total'         => $item_data['total']
@@ -124,7 +126,10 @@ class Woo_Order {
         ),
         'items'             => $response_items,
         'qty'               => $order_qty,
-        'total'             => $order_total
+        'total'             => $order_total,
+        'order_subtotal'    => number_format((float)$order->get_subtotal(), 2, '.', ''),
+        'order_tax_total'   => number_format((float)$order->get_total_tax(), 2, '.', ''),
+        'order_total'       => number_format((float)$order->get_total(), 2, '.', ''),
       );
       return $response;
     } else {
@@ -134,7 +139,7 @@ class Woo_Order {
   }
 
   /**
-   * Get product in order
+   * Is product in order?
    * 
    * @since 2.0.0
    * @param int order_id
@@ -145,7 +150,8 @@ class Woo_Order {
     $response_product = array();
 
     $product = wc_get_product( $product_id );
-    $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id(), 'thumbnail', false ) );
+    $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
+    $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
 
     $order = wc_get_order( $order_id );
     foreach ( $order->get_items() as $item => $item_data ) {
@@ -156,6 +162,7 @@ class Woo_Order {
           'price'         => $product->get_price(),
           'regular_price' => $product->get_regular_price(),
           'sale_price'    => $product->get_sale_price(),
+          'medium_url'    => $medium[0],
           'thumbnail_url' => $thumbnail[0],
           'qty'           => $item_data['qty'],
           'total'         => $item_data['total'],
@@ -197,7 +204,7 @@ class Woo_Order {
         $item->delete_meta_data('_line_total');
       }
     }
-    $order->calculate_totals();
+    $totals = $order->calculate_totals();
     $woo = new Woo_Order();
     return $woo->get_order( $order_id );
   }
