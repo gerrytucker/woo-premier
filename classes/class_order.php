@@ -64,6 +64,27 @@ class Woo_Order {
   }
 
   /**
+   * Complete order - recalculate totals & set status to 'Processing'
+   */
+  public function complete_order( $order_id ) {
+
+    if( $order = new WC_Order( $order_id) ) {
+
+      // Recalculate totals
+      $order->calculate_totals();
+      // Update status to processing
+      $order->update_status( 'wc-processing');
+
+      return self::get_order( $order_id );
+    }
+    else {
+      return false;
+    }
+
+  }
+
+
+  /**
    * Get an order
    * 
    * @since 2.0.0
@@ -77,16 +98,24 @@ class Woo_Order {
       $response_items = array();
       foreach ( $order->get_items() as $item => $item_data ) {
         $product = wc_get_product( $item_data['product_id'] );
-        $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $item_data['product_id']), 'medium', false );
-        $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id()), 'thumbnail', false );
+        $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
+        $retina_thumbnail = wr2x_get_retina_from_url($thumbnail[0]);
+        $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
+        $retina_medium = wr2x_get_retina_from_url($medium[0]);
+        $large = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'large', false );
         $response_items[] = array(
           'id'            => $item_data['product_id'],
           'name'          => $item_data['name'],
           'price'         => $product->get_price(),
           'regular_price' => $product->get_regular_price(),
           'sale_price'    => $product->get_sale_price(),
-          'medium_url'    => $medium[0],
-          'thumbnail_url' => $thumbnail[0],
+          'thumbnail_url'   => $thumbnail[0],
+          'retina_thumbnail_url'
+                            => $retina_thumbnail,
+          'medium_url'      => $medium[0],
+          'retina_medium_url'
+                            => $retina_medium,
+          'large_url'       => $large[0],
           'qty'           => $item_data['qty'],
           'total'         => $item_data['total']
         );
@@ -150,8 +179,11 @@ class Woo_Order {
     $response_product = array();
 
     $product = wc_get_product( $product_id );
-    $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
     $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
+    $retina_thumbnail = wr2x_get_retina_from_url($thumbnail[0]);
+    $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
+    $retina_medium = wr2x_get_retina_from_url($medium[0]);
+    $large = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'large', false );
 
     $order = wc_get_order( $order_id );
     foreach ( $order->get_items() as $item => $item_data ) {
@@ -162,8 +194,13 @@ class Woo_Order {
           'price'         => $product->get_price(),
           'regular_price' => $product->get_regular_price(),
           'sale_price'    => $product->get_sale_price(),
-          'medium_url'    => $medium[0],
-          'thumbnail_url' => $thumbnail[0],
+          'thumbnail_url'   => $thumbnail[0],
+          'retina_thumbnail_url'
+                            => $retina_thumbnail,
+          'medium_url'      => $medium[0],
+          'retina_medium_url'
+                            => $retina_medium,
+          'large_url'       => $large[0],
           'qty'           => $item_data['qty'],
           'total'         => $item_data['total'],
         );
@@ -177,7 +214,13 @@ class Woo_Order {
         'price'         => $product->get_price(),
         'regular_price' => $product->get_regular_price(),
         'sale_price'    => $product->get_sale_price(),
-        'thumbnail_url' => $thumbnail[0],
+        'thumbnail_url'   => $thumbnail[0],
+        'retina_thumbnail_url'
+                          => $retina_thumbnail,
+        'medium_url'      => $medium[0],
+        'retina_medium_url'
+                          => $retina_medium,
+        'large_url'       => $large[0],
         'qty'           => 0,
         'total'         => 0,
       );

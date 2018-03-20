@@ -24,6 +24,7 @@ class Woo_Customer {
     $response = array();
     
     if ( $customer = new WC_Customer( $id ) ) {
+      $country = new WC_Countries();
       $response = array(
         'customer'        => array(
           'id'            => $customer->get_id(),
@@ -32,7 +33,7 @@ class Woo_Customer {
           'email'         => $customer->get_email(),
           'username'      => $customer->get_username(),
           'display_name'  => $customer->get_display_name(),
-          'billing'       => array(
+          'billing_address' => $country->get_formatted_address(array(
             'first_name'  => $customer->get_billing_first_name(),
             'last_name'   => $customer->get_billing_last_name(),
             'company'     => $customer->get_billing_company(),
@@ -42,10 +43,8 @@ class Woo_Customer {
             'state'       => $customer->get_billing_state(),
             'postcode'    => $customer->get_billing_postcode(),
             'country'     => $customer->get_billing_country(),
-            'email'       => $customer->get_billing_email(),
-            'phone'       => $customer->get_billing_phone(),
-          ),
-          'shipping'       => array(
+          )),
+          'shipping_address' => $country->get_formatted_address(array(
             'first_name'  => $customer->get_billing_first_name(),
             'last_name'   => $customer->get_billing_last_name(),
             'company'     => $customer->get_billing_company(),
@@ -55,7 +54,7 @@ class Woo_Customer {
             'state'       => $customer->get_billing_state(),
             'postcode'    => $customer->get_billing_postcode(),
             'country'     => $customer->get_billing_country(),
-          ),
+          )),
           'order_count'   => $customer->get_order_count(),
           'orders'        => self::get_customer_orders( $id ),
           'open_orders'   => self::get_customer_open_orders( $id ),
@@ -103,8 +102,12 @@ class Woo_Customer {
       $items = $order->get_items();
       foreach ( $items as $item ) {
         $product = $item->get_product();
-        $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
         $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
+        $retina_thumbnail = wr2x_get_retina_from_url($thumbnail[0]);
+        $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
+        $retina_medium = wr2x_get_retina_from_url($medium[0]);
+        $large = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'large', false );
+
         $response_items[] = array(
           'id'              => $item->get_product_id(),
           'name'            => $product->get_name(),
@@ -113,8 +116,13 @@ class Woo_Customer {
           'sale_price'      => $product->get_sale_price(),
           'qty'             => $item->get_quantity(),
           'total'           => $item->get_total(),
-          'medium_url'      => $medium[0],
           'thumbnail_url'   => $thumbnail[0],
+          'retina_thumbnail_url'
+                            => $retina_thumbnail,
+          'medium_url'      => $medium[0],
+          'retina_medium_url'
+                            => $retina_medium,
+          'large_url'       => $large[0],
         );
       }
       $response[] = array(
@@ -171,16 +179,24 @@ class Woo_Customer {
       $ord = wc_get_order( $order->get_id() );
       foreach ( $ord->get_items() as $item => $item_data ) {
         $product = wc_get_product( $item_data['product_id'] );
-        $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
         $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
+        $retina_thumbnail = wr2x_get_retina_from_url($thumbnail[0]);
+        $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
+        $retina_medium = wr2x_get_retina_from_url($medium[0]);
+        $large = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'large', false );
         $response_items[] = array(
           'id'            => $item_data['product_id'],
           'name'          => $item_data['name'],
           'price'         => $product->get_price(),
           'regular_price' => $product->get_regular_price(),
           'sale_price'    => $product->get_sale_price(),
-          'medium_url'    => $medium[0],
-          'thumbnail_url' => $thumbnail[0],
+          'thumbnail_url'   => $thumbnail[0],
+          'retina_thumbnail_url'
+                            => $retina_thumbnail,
+          'medium_url'      => $medium[0],
+          'retina_medium_url'
+                            => $retina_medium,
+          'large_url'       => $large[0],
           'qty'           => $item_data['qty'],
           'total'         => $item_data['total']
         );
