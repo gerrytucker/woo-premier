@@ -3,12 +3,12 @@
 ## Cart routes
 
 ### Retrieve customer cart
-/customer/**customer_id**/cart
+/customer/*customer_id*/cart
 ### Clear customer cart
-/customer/**customer_id**/cart/clear/
+/customer/*customer_id*/cart/clear/
 ### Retrieve customer cart item
-/customer/**customer_id**/cart/**product_id**
+/customer/*customer_id*/cart/*product_id*
 ### Update/add customer cart item
-/customer/**customer_id**/cart/**product_id**/**line_qty**
+/customer/*customer_id*/cart/*product_id*/*line_qty*
 ### Delete customer cart
-/customer/**customer_id**/cart/delete/**product_id**
+/customer/*customer_id*/cart/delete/*product_id*
