@@ -4,7 +4,8 @@
  * Plugin Name:       NPPP2u for WooCommerce
  * Plugin URI:        https://nppp2u.co.uk/wp/plugins/woo-nppp2u
  * Description:       WooCommerce API Client for Norfolk Produce Prepacked 2U
- * Version:           2.0.4
+ * GitHub Plugin URI: https://github.com/gerrytucker/woo-premier
+ * Version:           1.0.0
  * Author:            Gerry Tucker
  * Author URI:        https://gerrytucker@gerrytucker.co.uk
  * License:           GPL-2.0+
