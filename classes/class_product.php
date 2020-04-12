@@ -5,7 +5,7 @@
 class Woo_Product {
 
   /** Version */
-  const VERSION = "2.0.0";
+  const VERSION = "1.0.0";
 
   /**
    * Set up the client
@@ -24,9 +24,7 @@ class Woo_Product {
     if ( $product = wc_get_product( $id ) ) {
       // Get product thumbnail
       $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
-      $retina_thumbnail = wr2x_get_retina_from_url($thumbnail[0]);
       $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
-      $retina_medium = wr2x_get_retina_from_url($medium[0]);
       $large = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'large', false );
   
       $response[] = array(
@@ -37,11 +35,7 @@ class Woo_Product {
         'regular_price'   => number_format((float)$product->get_regular_price(), 2, '.', ''),
         'sale_price'      => number_format((float)$product->get_sale_price(), 2, '.', ''),
         'thumbnail_url'   => $thumbnail[0],
-        'retina_thumbnail_url'
-                          => $retina_thumbnail,
         'medium_url'      => $medium[0],
-        'retina_medium_url'
-                          => $retina_medium,
         'large_url'       => $large[0],
       );
     }
@@ -68,9 +62,7 @@ class Woo_Product {
     foreach ( $products as $product ) {
       // Get product thumbnail
       $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
-      $retina_thumbnail = wr2x_get_retina_from_url($thumbnail[0]);
       $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
-      $retina_medium = wr2x_get_retina_from_url($medium[0]);
       $large = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'large', false );
   
       $response[] = array(
@@ -81,11 +73,7 @@ class Woo_Product {
         'regular_price'   => number_format((float)$product->get_regular_price(), 2, '.', ''),
         'sale_price'      => number_format((float)$product->get_sale_price(), 2, '.', ''),
         'thumbnail_url'   => $thumbnail[0],
-        'retina_thumbnail_url'
-                          => $retina_thumbnail,
         'medium_url'      => $medium[0],
-        'retina_medium_url'
-                          => $retina_medium,
         'large_url'       => $large[0],
       );
     }
