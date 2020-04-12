@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Plugin Name:       NPPP2u for WooCommerce
- * Plugin URI:        https://nppp2u.co.uk/wp/plugins/woo-nppp2u
- * Description:       WooCommerce API Client for Norfolk Produce Prepacked 2U
+ * Plugin Name:       Premier for WooCommerce
+ * Plugin URI:        https://scratbygardencentre.com/wp/plugins/woo-nppp2u
+ * Description:       WooCommerce API Client for Scratby Premier
  * GitHub Plugin URI: https://github.com/gerrytucker/woo-premier
  * Version:           1.0.0
  * Author:            Gerry Tucker
  * Author URI:        https://gerrytucker@gerrytucker.co.uk
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       woo-nppp2u
+ * Text Domain:       woo-premier
  * Domain Path:       /languages
  */
 
@@ -26,21 +26,21 @@ class Woo_Premier {
 	/**
 	 * Set up the client
 	 * 
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 */
 	function __constructor() {}
 
 	/**
 	 * Activate the plugin
 	 * 
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 */
 	public function woo_activate() {}
 
   /**
    * Register API routes
    * 
-   * @since 2.0.0
+   * @since 1.0.0
    */
 	public function woo_register_api_hooks() {
 
@@ -54,7 +54,7 @@ class Woo_Premier {
   /**
    * Register product routes
    * 
-   * @since 2.0.0
+   * @since 1.0.0
    */
   public function register_product_routes() {
 
@@ -75,7 +75,7 @@ class Woo_Premier {
 	/**
 	 * Get products
 	 *
-     * @since 2.0.0
+     * @since 1.0.0
 	 * @param WP_REST_Request $request
 	 * @return void
 	 */
@@ -95,7 +95,7 @@ class Woo_Premier {
 	/**
 	 * Get product
 	 *
-   * @since 2.0.0
+   * @since 1.0.0
 	 * @param WP_REST_Request $request
 	 * @return void
 	 */
@@ -116,7 +116,7 @@ class Woo_Premier {
 	/**
 	 * Initialize plugin
 	 * 
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 */
 	static function init() {
 		register_activation_hook( __FILE__, array( 'Woo_Premier', 'woo_activate' ) );
