@@ -5,7 +5,7 @@
  * Plugin URI:        https://scratbygardencentre.com/wp/plugins/woo-nppp2u
  * Description:       WooCommerce API Client for Scratby Premier
  * GitHub Plugin URI: https://github.com/gerrytucker/woo-premier
- * Version:           1.0.1
+ * Version:           1.0.2
  * Author:            Gerry Tucker
  * Author URI:        https://gerrytucker@gerrytucker.co.uk
  * License:           GPL-2.0+
@@ -57,13 +57,13 @@ class Woo_Premier {
 
 		// Get Product
 		register_rest_route( self::API_VERSION, 'product/(?P<id>\d+)', array(
-			'methods'	=> 'POST',
+			'methods'	=> 'GET',
 			'callback'	=> array( 'Woo_Premier', 'woo_get_product' )
 		));
 
 		// Get Products
 		register_rest_route( self::API_VERSION, 'products/', array(
-			'methods'	=> 'POST',
+			'methods'	=> 'GET',
 			'callback'	=> array( 'Woo_Premier', 'woo_get_products' )
 		));
 
