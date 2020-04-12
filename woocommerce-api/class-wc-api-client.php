@@ -6,7 +6,6 @@
  */
 class WC_API_Client {
 
-
 	/** API client version */
 	const VERSION = '2.0.1';
 
