@@ -20,15 +20,13 @@ class Woo_Category {
   public function get_categories() {
     $response = array();
 
-    $orderby = 'name';
-    $order = 'asc';
-    $hide_empty = false;
     $args = array(
-      'orderby'     => $orderby,
-      'order'       => $order,
-      'hide_empty'  => $hide_empty
+      'taxonomy'    => 'product_cat',
+      'orderby'     => 'name',
+      'order'       => 'ASC',
+      'hide_empty'  => false
     );
-    $categories = get_terms('product_cat', $args);
+    $categories = get_terms($args);
     foreach ($categories as $key => $category) {
       $response[] = array(
         'ID'    => $category->term_id,
