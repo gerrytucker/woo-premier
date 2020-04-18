@@ -21,20 +21,21 @@ class Woo_Category {
     $response = array();
 
     $args = array(
-      'taxonomy'    => 'product_cat',
-      'orderby'     => 'name',
-      'order'       => 'ASC',
-      'hide_empty'  => false,
-      'count'       => true,
-      'name_like'   => '%NP%'
+      'taxonomy'      => 'product_cat',
+      'orderby'       => 'name',
+      'order'         => 'ASC',
+      'hide_empty'    => false,
+      'count'         => true,
+      'name_like'     => '%NP%'
     );
     $categories = get_terms($args);
     foreach ($categories as $key => $category) {
       $response[] = array(
-        'ID'        => $category->term_id,
-        'name'      => $category->name,
-        'parent'    => $category->parent,
-        'count'     => $category->count
+        'ID'          => $category->term_id,
+        'name'        => $category->name,
+        'description' => $category->description,
+        'parent'      => $category->parent,
+        'count'       => $category->count
       );
     }
     return $response;
