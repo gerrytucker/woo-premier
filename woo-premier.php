@@ -5,7 +5,7 @@
  * Plugin URI:        https://scratbygardencentre.com/wp/plugins/woo-nppp2u
  * Description:       WooCommerce API Client for Scratby Premier
  * GitHub Plugin URI: https://github.com/gerrytucker/woo-premier
- * Version:           1.0.5
+ * Version:           1.0.6
  * Author:            Gerry Tucker
  * Author URI:        https://gerrytucker@gerrytucker.co.uk
  * License:           GPL-2.0+
@@ -16,6 +16,7 @@
 
 require_once('woocommerce-api.php');
 require_once('classes/class_product.php');
+require_once('classes/class_category.php');
 
 
 class Woo_Premier {
@@ -67,6 +68,12 @@ class Woo_Premier {
 			'callback'	=> array( 'Woo_Premier', 'woo_get_products' )
 		));
 
+		// Get Categories
+		register_rest_route( self::API_VERSION, 'categories/', array(
+			'methods'	=> 'GET',
+			'callback'	=> array( 'Woo_Premier', 'woo_get_categories' )
+		));
+
 	}	
 	
 	/**
@@ -104,6 +111,25 @@ class Woo_Premier {
 
 		if ( $product = $woo->get_product( $id ) ) {
 			return new WP_REST_Response( $product, 200 );
+		} else {
+			// return an 404 empty result set
+			return new WP_REST_Response( array(), 404 );
+		}
+	}
+
+	/**
+	 * Get categories
+	 *
+   * @since 1.0.0
+	 * @param WP_REST_Request $request
+	 * @return void
+	 */
+	static function woo_get_categories( WP_REST_Request $request ) {
+
+		$woo = new Woo_Category();
+
+		if ( $categories = $woo->get_categories() ) {
+			return new WP_REST_Response( $categories, 200 );
 		} else {
 			// return an 404 empty result set
 			return new WP_REST_Response( array(), 404 );
