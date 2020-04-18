@@ -24,13 +24,16 @@ class Woo_Category {
       'taxonomy'    => 'product_cat',
       'orderby'     => 'name',
       'order'       => 'ASC',
-      'hide_empty'  => false
+      'hide_empty'  => false,
+      'count'       => true
     );
     $categories = get_terms($args);
     foreach ($categories as $key => $category) {
       $response[] = array(
-        'ID'    => $category->term_id,
-        'name'  => $category->name
+        'ID'        => $category->term_id,
+        'name'      => $category->name,
+        'parent'    => $category->parent,
+        'count'     => $category->count
       );
     }
     return $response;
