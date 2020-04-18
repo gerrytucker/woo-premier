@@ -29,7 +29,7 @@ class Woo_Category {
       'hide_empty'  => $hide_empty
     );
     $categories = get_terms('product_cat', $args);
-    foreach ($categories as $category) {
+    foreach ($categories as $key => $category) {
       $response[] = array(
         'ID'    => $category->ID,
         'name'  => $category->name()
