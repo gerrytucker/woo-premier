@@ -32,7 +32,7 @@ class Woo_Category {
     foreach ($categories as $key => $category) {
       $response[] = array(
         'ID'    => $category->ID,
-        'name'  => $category->name()
+        'name'  => $category->name
       );
     }
     return $response;
