@@ -31,7 +31,7 @@ class Woo_Category {
     $categories = get_terms('product_cat', $args);
     foreach ($categories as $key => $category) {
       $response[] = array(
-        'ID'    => $category->ID,
+        'ID'    => $category->term_id,
         'name'  => $category->name
       );
     }
