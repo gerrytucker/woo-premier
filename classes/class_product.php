@@ -52,7 +52,7 @@ class Woo_Product {
 
     $products = wc_get_products(array(
       'limit'     => -1,
-      'orderby'   => 'name',
+      'orderby'   => 'rand',
       'order'     => 'ASC',
       'status'    => 'publish'
     ));
