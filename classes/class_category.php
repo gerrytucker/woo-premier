@@ -25,7 +25,8 @@ class Woo_Category {
       'orderby'     => 'name',
       'order'       => 'ASC',
       'hide_empty'  => false,
-      'count'       => true
+      'count'       => true,
+      'name_like'   => '%NP%'
     );
     $categories = get_terms($args);
     foreach ($categories as $key => $category) {
