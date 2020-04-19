@@ -4,5 +4,8 @@
 
 ### Get products
 /products/
-### Get product
-/product/**product_id**
+/products/**product_id**
+
+### Get categories
+/categories/
+/categories/**category_id**

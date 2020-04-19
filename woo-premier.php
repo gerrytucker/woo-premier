@@ -5,7 +5,7 @@
  * Plugin URI:        https://scratbygardencentre.com/wp/plugins/woo-nppp2u
  * Description:       WooCommerce API Client for Scratby Premier
  * GitHub Plugin URI: https://github.com/gerrytucker/woo-premier
- * Version:           1.0.15
+ * Version:           1.0.16
  * Author:            Gerry Tucker
  * Author URI:        https://gerrytucker@gerrytucker.co.uk
  * License:           GPL-2.0+
@@ -56,20 +56,26 @@ class Woo_Premier {
    */
   public function register_product_routes() {
 
-		// Get Product
-		register_rest_route( self::API_VERSION, 'product/(?P<id>\d+)', array(
-			'methods'	=> 'GET',
-			'callback'	=> array( 'Woo_Premier', 'woo_get_product' )
-		));
-
 		// Get Products
 		register_rest_route( self::API_VERSION, 'products/', array(
 			'methods'	=> 'GET',
 			'callback'	=> array( 'Woo_Premier', 'woo_get_products' )
 		));
 
+		// Get Product
+		register_rest_route( self::API_VERSION, 'products/(?P<id>\d+)', array(
+			'methods'	=> 'GET',
+			'callback'	=> array( 'Woo_Premier', 'woo_get_product' )
+		));	
+
 		// Get Categories
 		register_rest_route( self::API_VERSION, 'categories/', array(
+			'methods'	=> 'GET',
+			'callback'	=> array( 'Woo_Premier', 'woo_get_categories' )
+		));
+
+		// Get Category
+		register_rest_route( self::API_VERSION, 'categories/(?P<id>\d+)', array(
 			'methods'	=> 'GET',
 			'callback'	=> array( 'Woo_Premier', 'woo_get_categories' )
 		));
@@ -118,7 +124,7 @@ class Woo_Premier {
 	}
 
 	/**
-	 * Get categories
+	 * Get product categories
 	 *
    * @since 1.0.0
 	 * @param WP_REST_Request $request
@@ -129,6 +135,27 @@ class Woo_Premier {
 		$woo = new Woo_Category();
 
 		if ( $categories = $woo->get_categories() ) {
+			return new WP_REST_Response( $categories, 200 );
+		} else {
+			// return an 404 empty result set
+			return new WP_REST_Response( array(), 404 );
+		}
+	}
+
+	/**
+	 * Get product category
+	 *
+   * @since 1.0.0
+	 * @param WP_REST_Request $request
+	 * @return array
+	 */
+	static function woo_get_categories( WP_REST_Request $request ) {
+
+		$id = $_REQUEST['id'];
+
+		$woo = new Woo_Category();
+
+		if ( $categories = $woo->get_categories($id) ) {
 			return new WP_REST_Response( $categories, 200 );
 		} else {
 			// return an 404 empty result set
