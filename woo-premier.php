@@ -75,9 +75,9 @@ class Woo_Premier {
 		));
 
 		// Get Category
-		register_rest_route( self::API_VERSION, 'categories/(?P<id>\d+)', array(
+		register_rest_route( self::API_VERSION, 'category/(?P<id>\d+)', array(
 			'methods'	=> 'GET',
-			'callback'	=> array( 'Woo_Premier', 'woo_get_categories' )
+			'callback'	=> array( 'Woo_Premier', 'woo_get_category' )
 		));
 
 	}	
@@ -149,7 +149,7 @@ class Woo_Premier {
 	 * @param WP_REST_Request $request
 	 * @return array
 	 */
-	static function woo_get_categories( WP_REST_Request $request ) {
+	static function woo_get_category( WP_REST_Request $request ) {
 
 		$id = $_REQUEST['id'];
 

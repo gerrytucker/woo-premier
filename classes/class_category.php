@@ -13,13 +13,13 @@ class Woo_Category {
   public function __constructor() {}
 
   /**
-   * Get category
+   * Get categories
    * 
    * @since 1.0.0
    */
   public function get_categories() {
     $response = array();
-
+  
     $args = array(
       'taxonomy'      => 'product_cat',
       'orderby'       => 'name',
@@ -40,5 +40,35 @@ class Woo_Category {
     }
     return $response;
   }
-
-}
+  
+  /**
+   * Get category
+   * 
+   * @since 1.0.0
+   */
+  public function get_category($id) {
+    $response = array();
+  
+    $args = array(
+      'taxonomy'      => 'product_cat',
+      'order_ids'     => $id,
+      'orderby'       => 'name',
+      'order'         => 'ASC',
+      'hide_empty'    => false,
+      'count'         => true,
+      'name__like'    => 'NP'
+    );
+    $categories = get_terms($args);
+    foreach ($categories as $key => $category) {
+      $response[] = array(
+        'ID'          => $category->term_id,
+        'name'        => $category->name,
+        'description' => $category->description,
+        'parent'      => $category->parent,
+        'count'       => $category->count
+      );
+    }
+    return $response;
+  }
+  
+}    
