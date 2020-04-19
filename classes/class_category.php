@@ -51,7 +51,7 @@ class Woo_Category {
   
     $args = array(
       'taxonomy'      => 'product_cat',
-      'order_ids'     => $id,
+      'object_ids'    => $id,
       'orderby'       => 'name',
       'order'         => 'ASC',
       'hide_empty'    => false,
