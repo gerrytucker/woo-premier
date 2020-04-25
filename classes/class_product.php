@@ -48,7 +48,16 @@ class Woo_Product {
    * 
    * @since 2.0.0
    */
-  public function get_products() {
+  public function get_products($product_id) {
+
+    if ($product_id !== null)
+    $products = wc_get_products(array(
+      'include'   => array($product_id),
+      'limit'     => -1,
+      'orderby'   => 'rand',
+      'order'     => 'ASC',
+      'status'    => 'publish'
+    ));
 
     $products = wc_get_products(array(
       'limit'     => -1,
