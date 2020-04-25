@@ -2,7 +2,7 @@
 /**
  * NPPP2U Category API Client
  */
-class Woo_Category {
+class Woo_Product_Category {
 
   /** Version */
   const VERSION = "1.0.0";
@@ -17,7 +17,7 @@ class Woo_Category {
    * 
    * @since 1.0.0
    */
-  public function get_categories() {
+  public function get_product_categories() {
     $response = array();
   
     $args = array(
@@ -46,7 +46,7 @@ class Woo_Category {
    * 
    * @since 1.0.0
    */
-  public function get_category($id) {
+  public function get_product_category($id) {
     $response = array();
   
     $args = array(

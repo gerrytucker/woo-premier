@@ -5,7 +5,7 @@
  * Plugin URI:        https://scratbygardencentre.com/wp/plugins/woo-nppp2u
  * Description:       WooCommerce API Client for Scratby Premier
  * GitHub Plugin URI: https://github.com/gerrytucker/woo-premier
- * Version:           1.0.16
+ * Version:           1.1.0
  * Author:            Gerry Tucker
  * Author URI:        https://gerrytucker@gerrytucker.co.uk
  * License:           GPL-2.0+
@@ -69,15 +69,15 @@ class Woo_Premier {
 		));	
 
 		// Get Categories
-		register_rest_route( self::API_VERSION, 'categories/', array(
+		register_rest_route( self::API_VERSION, 'product_categories/', array(
 			'methods'	=> 'GET',
-			'callback'	=> array( 'Woo_Premier', 'woo_get_categories' )
+			'callback'	=> array( 'Woo_Premier', 'woo_get_product_categories' )
 		));
 
 		// Get Category
-		register_rest_route( self::API_VERSION, 'category/(?P<id>\d+)', array(
+		register_rest_route( self::API_VERSION, 'product_category/(?P<id>\d+)', array(
 			'methods'	=> 'GET',
-			'callback'	=> array( 'Woo_Premier', 'woo_get_category' )
+			'callback'	=> array( 'Woo_Premier', 'woo_get_product_category' )
 		));
 
 	}	
@@ -130,11 +130,11 @@ class Woo_Premier {
 	 * @param WP_REST_Request $request
 	 * @return void
 	 */
-	static function woo_get_categories( WP_REST_Request $request ) {
+	static function woo_get_product_categories( WP_REST_Request $request ) {
 
-		$woo = new Woo_Category();
+		$woo = new Woo_Product_Category();
 
-		if ( $categories = $woo->get_categories() ) {
+		if ( $categories = $woo->get_product_categories() ) {
 			return new WP_REST_Response( $categories, 200 );
 		} else {
 			// return an 404 empty result set
@@ -149,13 +149,13 @@ class Woo_Premier {
 	 * @param WP_REST_Request $request
 	 * @return array
 	 */
-	static function woo_get_category( WP_REST_Request $request ) {
+	static function woo_get_product_category( WP_REST_Request $request ) {
 
 		$id = $_REQUEST['id'];
 
-		$woo = new Woo_Category();
+		$woo = new Woo_Product_Category();
 
-		if ( $categories = $woo->get_categories($id) ) {
+		if ( $categories = $woo->get__product_categories($id) ) {
 			return new WP_REST_Response( $categories, 200 );
 		} else {
 			// return an 404 empty result set
