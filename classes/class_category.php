@@ -17,41 +17,11 @@ class Woo_Product_Category {
    * 
    * @since 1.0.0
    */
-  public function get_product_categories() {
+  public function get_product_categories($category_id) {
     $response = array();
   
     $args = array(
       'taxonomy'      => 'product_cat',
-      'orderby'       => 'name',
-      'order'         => 'ASC',
-      'hide_empty'    => false,
-      'count'         => true,
-      'name__like'    => 'NP'
-    );
-    $categories = get_terms($args);
-    foreach ($categories as $key => $category) {
-      $response[] = array(
-        'ID'          => $category->term_id,
-        'name'        => $category->name,
-        'description' => $category->description,
-        'parent'      => $category->parent,
-        'count'       => $category->count
-      );
-    }
-    return $response;
-  }
-  
-  /**
-   * Get category
-   * 
-   * @since 1.0.0
-   */
-  public function get_product_category($id) {
-    $response = array();
-  
-    $args = array(
-      'taxonomy'      => 'product_cat',
-      'object_ids'    => $id,
       'orderby'       => 'name',
       'order'         => 'ASC',
       'hide_empty'    => false,

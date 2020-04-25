@@ -5,7 +5,7 @@
  * Plugin URI:        https://scratbygardencentre.com/wp/plugins/woo-nppp2u
  * Description:       WooCommerce API Client for Scratby Premier
  * GitHub Plugin URI: https://github.com/gerrytucker/woo-premier
- * Version:           1.1.1
+ * Version:           1.1.2
  * Author:            Gerry Tucker
  * Author URI:        https://gerrytucker@gerrytucker.co.uk
  * License:           GPL-2.0+
@@ -99,27 +99,6 @@ class Woo_Premier {
 	}
 
 	/**
-	 * Get product
-	 *
-   * @since 1.0.0
-	 * @param WP_REST_Request $request
-	 * @return void
-	 */
-	static function woo_get_product( WP_REST_Request $request ) {
-
-		$id = $request['id'];
-
-		$woo = new Woo_Product();
-
-		if ( $product = $woo->get_product( $id ) ) {
-			return new WP_REST_Response( $product, 200 );
-		} else {
-			// return an 404 empty result set
-			return new WP_REST_Response( array(), 404 );
-		}
-	}
-
-	/**
 	 * Get product categories
 	 *
    * @since 1.0.0
@@ -131,27 +110,6 @@ class Woo_Premier {
 		$woo = new Woo_Product_Category();
 
 		if ( $categories = $woo->get_product_categories() ) {
-			return new WP_REST_Response( $categories, 200 );
-		} else {
-			// return an 404 empty result set
-			return new WP_REST_Response( array(), 404 );
-		}
-	}
-
-	/**
-	 * Get product category
-	 *
-   * @since 1.0.0
-	 * @param WP_REST_Request $request
-	 * @return array
-	 */
-	static function woo_get_product_category( WP_REST_Request $request ) {
-
-		$id = $_REQUEST['id'];
-
-		$woo = new Woo_Product_Category();
-
-		if ( $categories = $woo->get__product_categories($id) ) {
 			return new WP_REST_Response( $categories, 200 );
 		} else {
 			// return an 404 empty result set

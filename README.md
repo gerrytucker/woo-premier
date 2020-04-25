@@ -7,5 +7,6 @@
 /products/**product_id**
 
 ### Get categories
-/categories/
-/categories/**category_id**
+/products/categories/
+/products/categories/**category_id**
+
