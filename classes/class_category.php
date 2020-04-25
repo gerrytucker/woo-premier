@@ -28,6 +28,11 @@ class Woo_Product_Category {
       'count'         => true,
       'name__like'    => 'NP'
     );
+
+    if ($category_id !== null) {
+      $args['objects_ids'] = $category_id;
+    }
+
     $categories = get_terms($args);
     foreach ($categories as $key => $category) {
       $response[] = array(
