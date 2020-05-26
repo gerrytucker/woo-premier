@@ -40,7 +40,9 @@ class Woo_Product {
       );
     }
 
-    return $response;
+    return array(
+      "product" => $response
+    );
   }
 
   /**
@@ -87,7 +89,9 @@ class Woo_Product {
       );
     }
 
-    return $response;
+    return array(
+      "products" => $response
+    );
   }
 
 }
