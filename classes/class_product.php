@@ -18,10 +18,10 @@ class Woo_Product {
    * @since 2.0.0
    * @param int $id
    */
-  public function get_product( $id ) {
+  public function get_product( $product_id ) {
     $response = array();
 
-    if ( $product = wc_get_product( $id ) ) {
+    if ( $product = wc_get_product( $product_id ) ) {
       // Get product thumbnail
       $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
       $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
@@ -50,16 +50,7 @@ class Woo_Product {
    * 
    * @since 2.0.0
    */
-  public function get_products($product_id) {
-
-    if ($product_id !== null)
-    $products = wc_get_products(array(
-      'include'   => array($product_id),
-      'limit'     => -1,
-      'orderby'   => 'rand',
-      'order'     => 'ASC',
-      'status'    => 'publish'
-    ));
+  public function get_products() {
 
     $products = wc_get_products(array(
       'limit'     => -1,
@@ -90,7 +81,8 @@ class Woo_Product {
     }
 
     return array(
-      "products" => $response
+      "count"     => count($response),
+      "products"  => $response
     );
   }
 
