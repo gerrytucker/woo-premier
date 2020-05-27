@@ -26,7 +26,11 @@ class Woo_Product {
       $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
       $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
       $large = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'large', false );
-  
+
+      $stock_quantity = $product->get_stock_quantity();
+      if ($stock_quantity === null)
+        $stock_quantity = 0;
+
       $response[] = array(
         'id'              => $product->get_id(),
         'name'            => $product->get_name(),
@@ -35,7 +39,7 @@ class Woo_Product {
         'regular_price'   => number_format((float)$product->get_regular_price(), 2, '.', ''),
         'sale_price'      => number_format((float)$product->get_sale_price(), 2, '.', ''),
         'stock_status'    => $product->get_stock_status(),
-        'stock_quantity'  => $product->get_stock_quantity(),
+        'stock_quantity'  => $stock_quantity,
         'thumbnail_url'   => $thumbnail[0],
         'medium_url'      => $medium[0],
         'large_url'       => $large[0],
@@ -68,7 +72,11 @@ class Woo_Product {
       $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
       $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
       $large = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'large', false );
-  
+
+      $stock_quantity = $product->get_stock_quantity();
+      if ($stock_quantity === null)
+        $stock_quantity = 0;
+
       $response[] = array(
         'id'              => $product->get_id(),
         'name'            => $product->get_name(),
@@ -77,7 +85,7 @@ class Woo_Product {
         'regular_price'   => number_format((float)$product->get_regular_price(), 2, '.', ''),
         'sale_price'      => number_format((float)$product->get_sale_price(), 2, '.', ''),
         'stock_status'    => $product->get_stock_status(),
-        'stock_quantity'  => $product->get_stock_quantity(),
+        'stock_quantity'  => $stock_quantity,
         'thumbnail_url'   => $thumbnail[0],
         'medium_url'      => $medium[0],
         'large_url'       => $large[0],
