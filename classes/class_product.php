@@ -32,17 +32,20 @@ class Woo_Product {
         $stock_quantity = 0;
 
       $response[] = array(
-        'id'              => $product->get_id(),
-        'name'            => $product->get_name(),
-        'slug'            => $product->get_slug(),
-        'price'           => number_format((float)$product->get_price(), 2, '.', ''),
-        'regular_price'   => number_format((float)$product->get_regular_price(), 2, '.', ''),
-        'sale_price'      => number_format((float)$product->get_sale_price(), 2, '.', ''),
-        'stock_status'    => $product->get_stock_status(),
-        'stock_quantity'  => $stock_quantity,
-        'thumbnail_url'   => $thumbnail[0],
-        'medium_url'      => $medium[0],
-        'large_url'       => $large[0],
+        'id'                    => $product->get_id(),
+        'name'                  => $product->get_name(),
+        'slug'                  => $product->get_slug(),
+        'price'                 => number_format((float)$product->get_price(), 2, '.', ''),
+        'regular_price'         => number_format((float)$product->get_regular_price(), 2, '.', ''),
+        'sale_price'            => number_format((float)$product->get_sale_price(), 2, '.', ''),
+        'stock_status'          => $product->get_stock_status(),
+        'stock_quantity'        => $stock_quantity,
+        'backorders'            => $product->get_backorders(),
+        'backorders_allowed'    => $product->get_backorders_allowed(),
+        'backordered'           => $product->get_backordered(),
+        'thumbnail_url'         => $thumbnail[0],
+        'medium_url'            => $medium[0],
+        'large_url'             => $large[0],
       );
     }
 
@@ -78,17 +81,20 @@ class Woo_Product {
         $stock_quantity = 0;
 
       $response[] = array(
-        'id'              => $product->get_id(),
-        'name'            => $product->get_name(),
-        'slug'            => $product->get_slug(),
-        'price'           => number_format((float)$product->get_price(), 2, '.', ''),
-        'regular_price'   => number_format((float)$product->get_regular_price(), 2, '.', ''),
-        'sale_price'      => number_format((float)$product->get_sale_price(), 2, '.', ''),
-        'stock_status'    => $product->get_stock_status(),
-        'stock_quantity'  => $stock_quantity,
-        'thumbnail_url'   => $thumbnail[0],
-        'medium_url'      => $medium[0],
-        'large_url'       => $large[0],
+        'id'                    => $product->get_id(),
+        'name'                  => $product->get_name(),
+        'slug'                  => $product->get_slug(),
+        'price'                 => number_format((float)$product->get_price(), 2, '.', ''),
+        'regular_price'         => number_format((float)$product->get_regular_price(), 2, '.', ''),
+        'sale_price'            => number_format((float)$product->get_sale_price(), 2, '.', ''),
+        'stock_status'          => $product->get_stock_status(),
+        'stock_quantity'        => $stock_quantity,
+        'backorders'            => $product->get_backorders(),
+        'backorders_allowed'    => $product->get_backorders_allowed(),
+        'backordered'           => $product->get_backordered(),
+        'thumbnail_url'         => $thumbnail[0],
+        'medium_url'            => $medium[0],
+        'large_url'             => $large[0],
       );
     }
 
