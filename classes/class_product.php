@@ -87,7 +87,6 @@ class Woo_Product {
         'sale_price'            => number_format((float)$product->get_sale_price(), 2, '.', ''),
         'stock_status'          => $product->get_stock_status(),
         'stock_quantity'        => $stock_quantity,
-        'backorders'            => $product->backorders,
         'thumbnail_url'         => $thumbnail[0],
         'medium_url'            => $medium[0],
         'large_url'             => $large[0],
