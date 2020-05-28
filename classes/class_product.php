@@ -71,6 +71,7 @@ class Woo_Product {
     $response = array();
 
     foreach ( $products as $product ) {
+      print_r($product);
       // Get product thumbnail
       $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
       $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
