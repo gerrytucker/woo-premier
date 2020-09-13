@@ -31,10 +31,20 @@ class Woo_Product {
       if ($stock_quantity === null)
         $stock_quantity = 0;
 
+      $categories = array();
+      $terms = get_the_terms($product->ID, 'product_cat');
+      foreach ($terms as $term) {
+        $categories[] = array(
+          'category_id'         => $term->term_id,
+          'name'                => $term->name
+        );
+      }
+
       $response[] = array(
         'id'                    => $product->get_id(),
         'name'                  => $product->get_name(),
         'slug'                  => $product->get_slug(),
+        'categories'            => $categories,
         'price'                 => number_format((float)$product->get_price(), 2, '.', ''),
         'regular_price'         => number_format((float)$product->get_regular_price(), 2, '.', ''),
         'sale_price'            => number_format((float)$product->get_sale_price(), 2, '.', ''),
@@ -77,9 +87,19 @@ class Woo_Product {
       if ($stock_quantity === null)
         $stock_quantity = 0;
 
+      $categories = array();
+      $terms = get_the_terms($product->ID, 'product_cat');
+      foreach ($terms as $term) {
+        $categories[] = array(
+          'category_id'         => $term->term_id,
+          'name'                => $term->name
+        );
+      }
+
       $response[] = array(
         'id'                    => $product->get_id(),
         'name'                  => $product->get_name(),
+        'categories'            => $categories,
         'slug'                  => $product->get_slug(),
         'price'                 => number_format((float)$product->get_price(), 2, '.', ''),
         'regular_price'         => number_format((float)$product->get_regular_price(), 2, '.', ''),
