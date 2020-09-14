@@ -32,7 +32,7 @@ class Woo_Product {
         $stock_quantity = 0;
 
       $categories = array();
-      $terms = get_the_terms($product->ID, 'product_cat');
+      $terms = get_the_terms($product->get_id(), 'product_cat');
       foreach ($terms as $term) {
         $categories[] = array(
           'category_id'         => $term->term_id,
@@ -88,7 +88,7 @@ class Woo_Product {
         $stock_quantity = 0;
 
       $categories = array();
-      $terms = get_the_terms($product->ID, 'product_cat');
+      $terms = get_the_terms($product->get_id(), 'product_cat');
       foreach ($terms as $term) {
         $categories[] = array(
           'category_id'         => $term->term_id,
