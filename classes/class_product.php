@@ -113,7 +113,6 @@ class Woo_Product {
     }
 
     return array(
-      "count"     => count($response),
       "products"  => $response
     );
   }
