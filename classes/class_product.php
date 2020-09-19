@@ -112,9 +112,7 @@ class Woo_Product {
       );
     }
 
-    return array(
-      "products"  => $response
-    );
+    return $response;
   }
 
 }
