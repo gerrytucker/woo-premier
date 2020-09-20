@@ -23,9 +23,9 @@ class Woo_Product {
 
     if ( $product = wc_get_product( $product_id ) ) {
       // Get product thumbnail
-      $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
-      $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
-      $large = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'large', false );
+      $thumbnail = wp_get_attachment_image_url( $product->get_image_id(), 'thumbnail' );
+      $medium = wp_get_attachment_image_url( $product->get_image_id(), 'medium' );
+      $large = wp_get_attachment_image_url( $product->get_image_id(), 'large' );
 
       $stock_quantity = $product->get_stock_quantity();
       if ($stock_quantity === null)
@@ -79,9 +79,9 @@ class Woo_Product {
 
     foreach ( $products as $product ) {
       // Get product thumbnail
-      $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'thumbnail', false );
-      $medium = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'medium', false );
-      $large = wp_get_attachment_image_src( get_post_thumbnail_id( $product->get_id() ), 'large', false );
+      $thumbnail = wp_get_attachment_image_url( $product->get_image_id(), 'thumbnail' );
+      $medium = wp_get_attachment_image_url( $product->get_image_id(), 'medium' );
+      $large = wp_get_attachment_image_url( $product->get_image_id(), 'large' );
 
       $stock_quantity = $product->get_stock_quantity();
       if ($stock_quantity === null)
