@@ -24,10 +24,14 @@ class Woo_Product {
     if ( $product = wc_get_product( $product_id ) ) {
       // Get product thumbnail
       $image_id = $product->get_image_id();
-      $thumbnail = wp_get_attachment_image_url( $image_id, 'thumbnail' );
-      $medium = wp_get_attachment_image_url( $image_id, 'medium' );
-      $large = wp_get_attachment_image_url( $image_id, 'large' );
-      $full = wp_get_attachment_image_url( $image_id, 'full' );
+      if (!$thumbnail = wp_get_attachment_image_url( $image_id, 'thumbnail' ))
+        $thumbnail = wc_placeholder_img_src('thumbnail');
+      if (!$medium = wp_get_attachment_image_url( $image_id, 'medium' ))
+        $medium = wc_placeholder_img_src('medium');
+      if (!$large = wp_get_attachment_image_url( $image_id, 'large' ))
+        $large = wc_placeholder_img_src('large');
+      if (!$full = wp_get_attachment_image_url( $image_id, 'full' ))
+        $full = wc_placeholder_img_src('full');
 
       $stock_quantity = $product->get_stock_quantity();
       if ($stock_quantity === null)
@@ -52,10 +56,10 @@ class Woo_Product {
         'sale_price'            => number_format((float)$product->get_sale_price(), 2, '.', ''),
         'stock_status'          => $product->get_stock_status(),
         'stock_quantity'        => $stock_quantity,
-        'thumbnail_url'         => $thumbnail[0],
-        'medium_url'            => $medium[0],
-        'large_url'             => $large[0],
-        'full_url'              => $full[0],
+        'thumbnail_url'         => $thumbnail,
+        'medium_url'            => $medium,
+        'large_url'             => $large,
+        'full_url'              => $full,
       );
     }
 
@@ -83,13 +87,15 @@ class Woo_Product {
     foreach ( $products as $product ) {
       // Get product thumbnail
       $image_id = $product->get_image_id();
-      $thumbnail = wp_get_attachment_image_url( $image_id, 'thumbnail' );
-      $medium = wp_get_attachment_image_url( $image_id, 'medium' );
-      $large = wp_get_attachment_image_url( $image_id, 'large' );
-      $full = wp_get_attachment_image_url( $image_id, 'full' );
+      if (!$thumbnail = wp_get_attachment_image_url( $image_id, 'thumbnail' ))
+        $thumbnail = wc_placeholder_img_src('thumbnail');
+      if (!$medium = wp_get_attachment_image_url( $image_id, 'medium' ))
+        $medium = wc_placeholder_img_src('medium');
+      if (!$large = wp_get_attachment_image_url( $image_id, 'large' ))
+        $large = wc_placeholder_img_src('large');
+      if (!$full = wp_get_attachment_image_url( $image_id, 'full' ))
+        $full = wc_placeholder_img_src('full');
 
-      print_r(thumbnail);
-      
       $stock_quantity = $product->get_stock_quantity();
       if ($stock_quantity === null)
         $stock_quantity = 0;
@@ -113,10 +119,10 @@ class Woo_Product {
         'sale_price'            => number_format((float)$product->get_sale_price(), 2, '.', ''),
         'stock_status'          => $product->get_stock_status(),
         'stock_quantity'        => $stock_quantity,
-        'thumbnail_url'         => $thumbnail[0],
-        'medium_url'            => $medium[0],
-        'large_url'             => $large[0],
-        'full_url'              => $full[0],
+        'thumbnail_url'         => $thumbnail,
+        'medium_url'            => $medium,
+        'large_url'             => $large,
+        'full_url'              => $full
       );
     }
 
