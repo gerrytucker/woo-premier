@@ -23,9 +23,11 @@ class Woo_Product {
 
     if ( $product = wc_get_product( $product_id ) ) {
       // Get product thumbnail
-      $thumbnail = wp_get_attachment_image_url( $product->get_image_id(), 'thumbnail' );
-      $medium = wp_get_attachment_image_url( $product->get_image_id(), 'medium' );
-      $large = wp_get_attachment_image_url( $product->get_image_id(), 'large' );
+      $image_id = $product->get_image_id();
+      $thumbnail = wp_get_attachment_image_url( $image_id, 'thumbnail' );
+      $medium = wp_get_attachment_image_url( $image_id, 'medium' );
+      $large = wp_get_attachment_image_url( $image_id, 'large' );
+      $full = wp_get_attachment_image_url( $image_id, 'full' );
 
       $stock_quantity = $product->get_stock_quantity();
       if ($stock_quantity === null)
@@ -53,6 +55,7 @@ class Woo_Product {
         'thumbnail_url'         => $thumbnail[0],
         'medium_url'            => $medium[0],
         'large_url'             => $large[0],
+        'full_url'              => $full[0],
       );
     }
 
@@ -79,10 +82,14 @@ class Woo_Product {
 
     foreach ( $products as $product ) {
       // Get product thumbnail
-      $thumbnail = wp_get_attachment_image_url( $product->get_image_id(), 'thumbnail' );
-      $medium = wp_get_attachment_image_url( $product->get_image_id(), 'medium' );
-      $large = wp_get_attachment_image_url( $product->get_image_id(), 'large' );
+      $image_id = $product->get_image_id();
+      $thumbnail = wp_get_attachment_image_url( $image_id, 'thumbnail' );
+      $medium = wp_get_attachment_image_url( $image_id, 'medium' );
+      $large = wp_get_attachment_image_url( $image_id, 'large' );
+      $full = wp_get_attachment_image_url( $image_id, 'full' );
 
+      print_r(thumbnail);
+      
       $stock_quantity = $product->get_stock_quantity();
       if ($stock_quantity === null)
         $stock_quantity = 0;
@@ -109,6 +116,7 @@ class Woo_Product {
         'thumbnail_url'         => $thumbnail[0],
         'medium_url'            => $medium[0],
         'large_url'             => $large[0],
+        'full_url'              => $full[0],
       );
     }
 
