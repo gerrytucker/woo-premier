@@ -86,8 +86,6 @@ class Woo_Product {
     return $response;
   }
 
-}
-
   /**
    * Get products by category slug
    * 
@@ -113,3 +111,4 @@ class Woo_Product {
     return $response;
   }
 
+}
