@@ -44,7 +44,7 @@ class Woo_Product {
         );
       }
 
-      $response[] = array(
+      $response = array(
         'id'                    => $product->get_id(),
         'name'                  => $product->get_name(),
         'slug'                  => $product->get_slug(),
@@ -78,9 +78,8 @@ class Woo_Product {
     ));
 
     $response = array();
-
     foreach ( $products as $product ) {
-      $response[] = get_product($product->id);
+      $response[] = $this->get_product($product->get_id());
     }
 
     return $response;
@@ -105,7 +104,7 @@ class Woo_Product {
     $response = array();
 
     foreach ( $products as $product ) {
-      $response[] = get_product($product->id);
+      $response[] = $this->get_product($product->get_id());
     }
 
     return $response;

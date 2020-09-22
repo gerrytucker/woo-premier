@@ -76,7 +76,7 @@ class Woo_Premier {
 		// Get Products
 		register_rest_route( self::API_VERSION, 'products/cat_slug/', array(
 			'methods'	=> 'GET',
-			'callback'	=> array( 'Woo_Premier', 'woo_get_products_by_cat_slug/<?P<name>[a-zA-Z0-9._-]+' )
+			'callback'	=> array( 'Woo_Premier', 'woo_get_products_by_cat_slug/<?P<slug>[a-zA-Z0-9._-]+' )
 		));	
 
 
@@ -135,7 +135,7 @@ class Woo_Premier {
 
 		$woo = new Woo_Product();
 
-		$cat_slug = $request['cat_slug'];
+		$cat_slug = $request['slug'];
 
 		if ( $products = $woo->get_products_by_cat_slug($cat_slug) ) {
 			return new WP_REST_Response( $products, 200 );
