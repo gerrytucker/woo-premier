@@ -17,7 +17,7 @@ class Woo_Product_Category {
    * 
    * @since 1.0.0
    */
-  public function get_product_categories($category_id) {
+  public function get_product_categories() {
     $response = array();
   
     $args = array(
@@ -28,10 +28,6 @@ class Woo_Product_Category {
       'count'         => true,
       'name__like'    => 'NP'
     );
-
-    if ($category_id !== null) {
-      $args['objects_ids'] = $category_id;
-    }
 
     $categories = get_terms($args);
     foreach ($categories as $key => $category) {
