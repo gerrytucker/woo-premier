@@ -44,11 +44,19 @@ class Woo_Product {
         );
       }
 
+      // Barcode meta
+      if ( $barcode_meta = get_post_meta($product->get_id(), '_barcode') ) {
+        $barcode = $barcode_meta[0];
+      } else {
+        $barcode = '';
+      }
+      
       $response = array(
         'id'                    => $product->get_id(),
         'name'                  => $product->get_name(),
         'slug'                  => $product->get_slug(),
         'categories'            => $categories,
+        'barcode'               => $barcode,
         'price'                 => number_format((float)$product->get_price(), 2, '.', ''),
         'regular_price'         => number_format((float)$product->get_regular_price(), 2, '.', ''),
         'sale_price'            => number_format((float)$product->get_sale_price(), 2, '.', ''),
