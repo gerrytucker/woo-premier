@@ -98,7 +98,7 @@ class Woo_Product {
    * 
    * @since 2.0.0
    */
-  private function handle_barcode_query_var( $query, $query_vars) {
+  function handle_barcode_query_var( $query, $query_vars) {
     if ( !empty( $query_vars['barcode'] ) ) {
       $query['meta_query'][] = array(
         'key'       => '_barcode',
@@ -110,7 +110,7 @@ class Woo_Product {
 
   public function get_products_by_barcode($barcode) {
 
-    add_filter( 'woocommerce_product_data_store_cpt_get_products_query', array($this, 'handle_custom_query_var'), 10, 2 );
+    add_filter( 'woocommerce_product_data_store_cpt_get_products_query', array($this, 'handle_barcode_query_var'), 10, 2 );
 
     $products = wc_get_products(array(
       'limit'     => -1,
@@ -125,7 +125,7 @@ class Woo_Product {
       $response[] = $this->get_product($product->get_id());
     }
 
-    remove_filter( 'woocommerce_product_data_store_cpt_get_products_query' );
+    remove_filter( 'woocommerce_product_data_store_cpt_get_products_query', array($this, 'handle_barcode_query_var'), 10 );
 
     return $response;
   }
