@@ -30,14 +30,12 @@ class Woo_Product_Category {
 
     $categories = get_terms($args);
     foreach ($categories as $category) {
-      $image_id = get_woocommerce_term_meta( $category->term_id, 'thumbnail_id', true );
+      $image_id = get_term_meta( $category->term_id, 'thumbnail_id', true );
       $response[] = array(
         'ID'          => $category->term_id,
         'name'        => $category->name,
         'slug'        => $category->slug,
         'description' => $category->description,
-        'parent'      => $category->parent,
-        'taxonomy'    => $category->taxonomy,
         'count'       => $category->count,
         'thumbnail'   => wp_get_attachment_url(  $image_id )
       );
@@ -63,7 +61,7 @@ class Woo_Product_Category {
 
     $categories = get_terms($args);
     foreach ($categories as $key => $category) {
-      $response[] = get_product_category( $category->term_id);
+      $response[] = $this->get_product_category( $category->term_id );
     }
     return $response;
   }

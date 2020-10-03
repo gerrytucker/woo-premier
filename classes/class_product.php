@@ -86,6 +86,43 @@ class Woo_Product {
   }
 
   /**
+   * Get products by barcode
+   * 
+   * @since 2.0.0
+   */
+  private function handle_barcode_query_var( $query, $query_vars) {
+    if ( !empty( $query_vars['barcode'] ) ) {
+      $query['meta_query'][] = array(
+        'key'       => '_barcode',
+        'value'     => esc_attr( $query_vars['barcode'] )
+      );
+    }
+    return $query;
+  }
+
+  public function get_products_by_barcode($barcode) {
+
+    add_filter( 'woocommerce_product_data_store_cpt_get_products_query', array($this, 'handle_custom_query_var'), 10, 2 );
+
+    $products = wc_get_products(array(
+      'limit'     => -1,
+      'orderby'   => 'name',
+      'order'     => 'ASC',
+      'status'    => 'publish',
+      'barcode'   => $barcode,
+    ));
+
+    $response = array();
+    foreach ( $products as $product ) {
+      $response[] = $this->get_product($product->get_id());
+    }
+
+    remove_filter( 'woocommerce_product_data_store_cpt_get_products_query' );
+
+    return $response;
+  }
+
+  /**
    * Get products by category slug
    * 
    * @since 2.0.0

@@ -5,7 +5,7 @@
  * Plugin URI:        https://scratbygardencentre.com/wp/plugins/woo-nppp2u
  * Description:       WooCommerce API Client for Scratby Premier
  * GitHub Plugin URI: https://github.com/gerrytucker/woo-premier
- * Version:           2.1.0
+ * Version:           2.2.0
  * Author:            Gerry Tucker
  * Author URI:        https://gerrytucker@gerrytucker.co.uk
  * License:           GPL-2.0+
@@ -62,7 +62,7 @@ class Woo_Premier {
 		));
 
 		// Get Category
-		register_rest_route( self::API_VERSION, 'categories/(?P<id>\d+)', array(
+		register_rest_route( self::API_VERSION, 'category/(?P<id>\d+)', array(
 			'methods'	=> 'GET',
 			'callback'	=> array( 'Woo_Premier', 'woo_get_product_category' )
 		));
@@ -85,6 +85,12 @@ class Woo_Premier {
 			'callback'	=> array( 'Woo_Premier', 'woo_get_products_by_cat_slug/<?P<slug>[a-zA-Z0-9._-]+' )
 		));	
 
+		// Get Products by Barcode
+		register_rest_route( self::API_VERSION, 'products/barcode/(?P<barcode>\d+)', array(
+			'methods'	=> 'GET',
+			'callback'	=> array( 'Woo_Premier', 'woo_get_products_by_barcode' )
+		));	
+
 
 	}	
 	
@@ -100,6 +106,28 @@ class Woo_Premier {
 		$woo = new Woo_Product();
 
 		if ( $products = $woo->get_products() ) {
+			return new WP_REST_Response( $products, 200 );
+		} else {
+			// return an 404 empty result set
+			return new WP_REST_Response( array(), 404 );
+		}
+			
+	}
+
+	/**
+	 * Get products by Barcode
+	 *
+   * @since 2.2.0
+	 * @param WP_REST_Request $request
+	 * @return void
+	 */
+	static function woo_get_products_by_barcode( WP_REST_Request $request ) {
+
+		$woo = new Woo_Product();
+
+		$barcode = $request['barcode'];
+
+		if ( $products = $woo->get_products_by_barcode($barcode) ) {
 			return new WP_REST_Response( $products, 200 );
 		} else {
 			// return an 404 empty result set
