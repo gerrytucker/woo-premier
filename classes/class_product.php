@@ -51,11 +51,19 @@ class Woo_Product {
         $barcode = '';
       }
       
+      // SKU
+      if ( $sku_meta = get_post_meta($product->get_id(), '_sku') ) {
+        $sku = $sku_meta[0];
+      } else {
+        $sku = '';
+      }
+      
       $response = array(
         'id'                    => $product->get_id(),
         'name'                  => $product->get_name(),
         'slug'                  => $product->get_slug(),
         'categories'            => $categories,
+        'sku'                   => $sku,
         'barcode'               => $barcode,
         'price'                 => number_format((float)$product->get_price(), 2, '.', ''),
         'regular_price'         => number_format((float)$product->get_regular_price(), 2, '.', ''),

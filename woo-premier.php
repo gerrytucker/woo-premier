@@ -5,11 +5,7 @@
  * Plugin URI:        https://scratbygardencentre.com/wp/plugins/woo-nppp2u
  * Description:       WooCommerce API Client for Scratby Premier
  * GitHub Plugin URI: https://github.com/gerrytucker/woo-premier
-<<<<<<< HEAD
- * Version:           2.2.0
-=======
- * Version:           2.1.1
->>>>>>> 8ae704f25596f771bdfb7125983dfd4e0e16478b
+ * Version:           2.2.1
  * Author:            Gerry Tucker
  * Author URI:        https://gerrytucker@gerrytucker.co.uk
  * License:           GPL-2.0+
