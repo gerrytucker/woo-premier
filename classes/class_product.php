@@ -139,6 +139,43 @@ class Woo_Product {
   }
 
   /**
+   * Get products by SKU
+   * 
+   * @since 2.3.0
+   */
+  function handle_sku_query_var( $query, $query_vars) {
+    if ( !empty( $query_vars['sku'] ) ) {
+      $query['meta_query'][] = array(
+        'key'       => '_sku',
+        'value'     => esc_attr( $query_vars['sku'] )
+      );
+    }
+    return $query;
+  }
+
+  public function get_products_by_sku($sku) {
+
+    add_filter( 'woocommerce_product_data_store_cpt_get_products_query', array($this, 'handle_sku_query_var'), 10, 2 );
+
+    $products = wc_get_products(array(
+      'limit'     => -1,
+      'orderby'   => 'name',
+      'order'     => 'ASC',
+      'status'    => 'publish',
+      'sku'       => $sku,
+    ));
+
+    $response = array();
+    foreach ( $products as $product ) {
+      $response[] = $this->get_product($product->get_id());
+    }
+
+    remove_filter( 'woocommerce_product_data_store_cpt_get_products_query', array($this, 'handle_sku_query_var'), 10 );
+
+    return $response;
+  }
+
+  /**
    * Get products by category slug
    * 
    * @since 2.0.0

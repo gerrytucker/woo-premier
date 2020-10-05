@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Plugin Name:       Premier for WooCommerce
+ * Plugin Name:       WooCommerce API Client for Scratby Premier
  * Plugin URI:        https://scratbygardencentre.com/wp/plugins/woo-nppp2u
  * Description:       WooCommerce API Client for Scratby Premier
  * GitHub Plugin URI: https://github.com/gerrytucker/woo-premier
- * Version:           2.2.1
+ * Version:           2.3.0
  * Author:            Gerry Tucker
  * Author URI:        https://gerrytucker@gerrytucker.co.uk
  * License:           GPL-2.0+
@@ -91,6 +91,11 @@ class Woo_Premier {
 			'callback'	=> array( 'Woo_Premier', 'woo_get_products_by_barcode' )
 		));	
 
+		// Get Products by SKU
+		register_rest_route( self::API_VERSION, 'products/sku/(?P<sku>\d+)', array(
+			'methods'	=> 'GET',
+			'callback'	=> array( 'Woo_Premier', 'woo_get_products_by_sku' )
+		));	
 
 	}	
 	
@@ -128,6 +133,28 @@ class Woo_Premier {
 		$barcode = $request['barcode'];
 
 		if ( $products = $woo->get_products_by_barcode($barcode) ) {
+			return new WP_REST_Response( $products, 200 );
+		} else {
+			// return an 404 empty result set
+			return new WP_REST_Response( array(), 404 );
+		}
+			
+	}
+
+	/**
+	 * Get products by SKU
+	 *
+   * @since 2.3.0
+	 * @param WP_REST_Request $request
+	 * @return void
+	 */
+	static function woo_get_products_by_sku( WP_REST_Request $request ) {
+
+		$woo = new Woo_Product();
+
+		$sku = $request['sku'];
+
+		if ( $products = $woo->get_products_by_sku($sku) ) {
 			return new WP_REST_Response( $products, 200 );
 		} else {
 			// return an 404 empty result set
