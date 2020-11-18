@@ -14,7 +14,7 @@ class Woo_Product {
 
   /**
    * Get product
-   * 
+   *
    * @since 2.0.0
    * @param int $id
    */
@@ -50,14 +50,14 @@ class Woo_Product {
       } else {
         $barcode = '';
       }
-      
+
       // SKU
       if ( $sku_meta = get_post_meta($product->get_id(), '_sku') ) {
         $sku = $sku_meta[0];
       } else {
         $sku = '';
       }
-      
+
       $response = array(
         'id'                    => $product->get_id(),
         'name'                  => $product->get_name(),
@@ -81,10 +81,17 @@ class Woo_Product {
 
   /**
    * Get products
-   * 
+   *
    * @since 2.0.0
    */
   public function get_products() {
+
+    $args   = array(
+      'limit'     => -1,
+      'orderby'   => 'name',
+      'order'     => 'ASC',
+      'status'    => 'publish'
+    );
 
     $products = wc_get_products(array(
       'limit'     => -1,
@@ -103,7 +110,7 @@ class Woo_Product {
 
   /**
    * Get products by barcode
-   * 
+   *
    * @since 2.0.0
    */
   function handle_barcode_query_var( $query, $query_vars) {
@@ -140,7 +147,7 @@ class Woo_Product {
 
   /**
    * Get products by SKU
-   * 
+   *
    * @since 2.3.0
    */
   function handle_sku_query_var( $query, $query_vars) {
@@ -177,7 +184,7 @@ class Woo_Product {
 
   /**
    * Get products by category slug
-   * 
+   *
    * @since 2.0.0
    * @param int $id
    */

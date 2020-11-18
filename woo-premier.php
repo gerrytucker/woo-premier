@@ -5,7 +5,7 @@
  * Plugin URI:        https://scratbygardencentre.com/wp/plugins/woo-nppp2u
  * Description:       WooCommerce API Client for Scratby Premier
  * GitHub Plugin URI: https://github.com/gerrytucker/woo-premier
- * Version:           2.3.0
+ * Version:           2.3.1
  * Author:            Gerry Tucker
  * Author URI:        https://gerrytucker@gerrytucker.co.uk
  * License:           GPL-2.0+
@@ -25,32 +25,32 @@ class Woo_Premier {
 
 	/**
 	 * Set up the client
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	function __constructor() {}
 
 	/**
 	 * Activate the plugin
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	public function woo_activate() {}
 
   /**
    * Register API routes
-   * 
+   *
    * @since 1.0.0
    */
 	public function woo_register_api_hooks() {
 
     self::register_product_routes();
 
-	}		
+	}
 
   /**
    * Register product routes
-   * 
+   *
    * @since 1.0.0
    */
   public function register_product_routes() {
@@ -70,35 +70,36 @@ class Woo_Premier {
 		// Get Products
 		register_rest_route( self::API_VERSION, 'products/', array(
 			'methods'	=> 'GET',
-			'callback'	=> array( 'Woo_Premier', 'woo_get_products' )
-		));	
+      'callback'	=> array( 'Woo_Premier', 'woo_get_products' ),
+      'args'	=>  array('page', 'per_page')
+		));
 
 		// Get Product
 		register_rest_route( self::API_VERSION, 'product/(?P<id>\d+)', array(
 			'methods'	=> 'GET',
 			'callback'	=> array( 'Woo_Premier', 'woo_get_product' )
-		));		
+		));
 
 		// Get Products
 		register_rest_route( self::API_VERSION, 'products/cat_slug/', array(
 			'methods'	=> 'GET',
 			'callback'	=> array( 'Woo_Premier', 'woo_get_products_by_cat_slug/<?P<slug>[a-zA-Z0-9._-]+' )
-		));	
+		));
 
 		// Get Products by Barcode
 		register_rest_route( self::API_VERSION, 'products/barcode/(?P<barcode>\d+)', array(
 			'methods'	=> 'GET',
 			'callback'	=> array( 'Woo_Premier', 'woo_get_products_by_barcode' )
-		));	
+		));
 
 		// Get Products by SKU
 		register_rest_route( self::API_VERSION, 'products/sku/(?P<sku>\d+)', array(
 			'methods'	=> 'GET',
 			'callback'	=> array( 'Woo_Premier', 'woo_get_products_by_sku' )
-		));	
+		));
 
-	}	
-	
+	}
+
 	/**
 	 * Get products
 	 *
@@ -108,6 +109,8 @@ class Woo_Premier {
 	 */
 	static function woo_get_products( WP_REST_Request $request ) {
 
+    print_r($request['page']);
+
 		$woo = new Woo_Product();
 
 		if ( $products = $woo->get_products() ) {
@@ -116,7 +119,7 @@ class Woo_Premier {
 			// return an 404 empty result set
 			return new WP_REST_Response( array(), 404 );
 		}
-			
+
 	}
 
 	/**
@@ -138,7 +141,7 @@ class Woo_Premier {
 			// return an 404 empty result set
 			return new WP_REST_Response( array(), 404 );
 		}
-			
+
 	}
 
 	/**
@@ -160,7 +163,7 @@ class Woo_Premier {
 			// return an 404 empty result set
 			return new WP_REST_Response( array(), 404 );
 		}
-			
+
 	}
 
 	/**
@@ -182,7 +185,7 @@ class Woo_Premier {
 			// return an 404 empty result set
 			return new WP_REST_Response( array(), 404 );
 		}
-			
+
 	}
 
 	/**
@@ -204,7 +207,7 @@ class Woo_Premier {
 			// return an 404 empty result set
 			return new WP_REST_Response( array(), 404 );
 		}
-			
+
 	}
 
 	/**
@@ -245,12 +248,12 @@ class Woo_Premier {
 			// return an 404 empty result set
 			return new WP_REST_Response( array(), 404 );
 		}
-			
+
 	}
 
 	/**
 	 * Initialize plugin
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	static function init() {
