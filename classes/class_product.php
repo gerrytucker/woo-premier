@@ -84,21 +84,17 @@ class Woo_Product {
    *
    * @since 2.0.0
    */
-  public function get_products() {
+  public function get_products($args) {
 
-    $args   = array(
-      'limit'     => -1,
+    $atts = shortcode_atts( array(
       'orderby'   => 'name',
       'order'     => 'ASC',
-      'status'    => 'publish'
-    );
+      'status'    => 'publish',
+      'page'      => 1,
+      'limit'     => 10
+    ), $args);
 
-    $products = wc_get_products(array(
-      'limit'     => -1,
-      'orderby'   => 'name',
-      'order'     => 'ASC',
-      'status'    => 'publish'
-    ));
+    $products = wc_get_products($atts);
 
     $response = array();
     foreach ( $products as $product ) {
