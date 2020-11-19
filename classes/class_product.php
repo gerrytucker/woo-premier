@@ -58,6 +58,9 @@ class Woo_Product {
         $sku = '';
       }
 
+      $woo = new Woo_Image();
+      $image = $woo->get_image($image_id);
+
       $response = array(
         'id'                    => $product->get_id(),
         'name'                  => $product->get_name(),
@@ -74,6 +77,7 @@ class Woo_Product {
         'thumbnail_url'         => $thumbnail,
         'medium_url'            => $medium,
         'large_url'             => $large,
+        'image'                 => $image,
       );
     }
 

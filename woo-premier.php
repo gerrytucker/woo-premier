@@ -16,6 +16,7 @@
 require_once('woocommerce-api.php');
 require_once('classes/class_product.php');
 require_once('classes/class_category.php');
+require_once('classes/class_image.php');
 
 
 class Woo_Premier {
@@ -109,7 +110,7 @@ class Woo_Premier {
 	 */
 	static function woo_get_products( WP_REST_Request $request ) {
 
-		$woo = new Woo_Product($request);
+		$woo = new Woo_Product();
 
 		if ( $products = $woo->get_products() ) {
 			return new WP_REST_Response( $products, 200 );
