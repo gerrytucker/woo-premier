@@ -5,7 +5,7 @@
 class Woo_Product_Category {
 
   /** Version */
-  const VERSION = "1.0.0";
+  const VERSION = "2.0.0";
 
   /**
    * Set up the client
@@ -14,7 +14,7 @@ class Woo_Product_Category {
 
   /**
    * Get category
-   * 
+   *
    * @since 2.0.0
    */
   public function get_product_category( $category_id ) {
@@ -45,12 +45,12 @@ class Woo_Product_Category {
 
   /**
    * Get categories
-   * 
+   *
    * @since 1.0.0
    */
   public function get_product_categories() {
     $response = array();
-  
+
     $args = array(
       'taxonomy'      => 'product_cat',
       'orderby'       => 'name',
@@ -65,5 +65,5 @@ class Woo_Product_Category {
     }
     return $response;
   }
-  
-}    
+
+}

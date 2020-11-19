@@ -5,7 +5,7 @@
 class Woo_Product {
 
   /** Version */
-  const VERSION = "1.0.0";
+  const VERSION = "2.0.0";
 
   /**
    * Set up the client
@@ -70,6 +70,7 @@ class Woo_Product {
         'sale_price'            => number_format((float)$product->get_sale_price(), 2, '.', ''),
         'stock_status'          => $product->get_stock_status(),
         'stock_quantity'        => $stock_quantity,
+        'image_id'              => $image_id,
         'thumbnail_url'         => $thumbnail,
         'medium_url'            => $medium,
         'large_url'             => $large,
