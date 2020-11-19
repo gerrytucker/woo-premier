@@ -17,11 +17,8 @@ class Woo_Image {
 
     if (!function_exists('fly_get_attachment_image')) return $response;
 
-    $image = fly_get_attachment_image($image_id, array(400, 400));
-    var_dump($image);
+    $image = fly_get_attachment_image_src($image_id, array(400, 400));
 
-    return array(
-      'image'     => $image
-    );
+    return $image;
   }
 }

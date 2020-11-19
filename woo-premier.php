@@ -110,9 +110,12 @@ class Woo_Premier {
 	 */
 	static function woo_get_products( WP_REST_Request $request ) {
 
+    $page = $request['page'];
+    $limit = $request['limit'];
+
 		$woo = new Woo_Product();
 
-		if ( $products = $woo->get_products() ) {
+		if ( $products = $woo->get_products($page, $limit) ) {
 			return new WP_REST_Response( $products, 200 );
 		} else {
 			// return an 404 empty result set
