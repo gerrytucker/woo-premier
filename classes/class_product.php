@@ -208,4 +208,12 @@ class Woo_Product {
     return $response;
   }
 
+  public function update_product_qty( $product_id, $new_stock_quantity) {
+
+    if ( $product = new WC_Product($product_id) ) {
+      $product->set_stock_quantity($new_stock_quantity);
+    }
+
+    return get_product($product_id);
+  }
 }

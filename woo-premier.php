@@ -5,7 +5,7 @@
  * Plugin URI:        https://scratbygardencentre.com/wp/plugins/woo-nppp2u
  * Description:       WooCommerce API Client for Scratby Premier
  * GitHub Plugin URI: https://github.com/gerrytucker/woo-premier
- * Version:           2.5.0
+ * Version:           2.7.0
  * Author:            Gerry Tucker
  * Author URI:        https://gerrytucker@gerrytucker.co.uk
  * License:           GPL-2.0+
@@ -168,6 +168,29 @@ class Woo_Premier {
 
 		if ( $products = $woo->get_products_by_sku($sku) ) {
 			return new WP_REST_Response( $products, 200 );
+		} else {
+			// return an 404 empty result set
+			return new WP_REST_Response( array(), 404 );
+		}
+
+	}
+
+	/**
+	 * Update product stock quantity
+	 *
+   * @since 2.3.0
+	 * @param WP_REST_Request $request
+	 * @return void
+	 */
+	static function woo_update_product_qty( WP_REST_Request $request ) {
+
+		$woo = new Woo_Product();
+
+		$product_id = $request['id'];
+		$new_stock_quantity = $request['qty'];
+
+		if ($products = $woo->update_product_qty($product_id, $new_stock_quantity) ) {
+			return new WP_REST_Response( $product, 200 );
 		} else {
 			// return an 404 empty result set
 			return new WP_REST_Response( array(), 404 );
