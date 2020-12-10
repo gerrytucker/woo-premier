@@ -99,6 +99,13 @@ class Woo_Premier {
 			'callback'	=> array( 'Woo_Premier', 'woo_get_products_by_sku' )
 		));
 
+		// Update product stock quantity
+		register_rest_route( self::API_VERSION, 'products/stock/(?P<id>\d+)', array(
+			'methods'	=> 'PUT',
+			'callback'	=> array('Woo_Premier', 'woo_update_product_qty/(?P<id>\d+)'),
+			'args' => array('qty')
+		));
+
 	}
 
 	/**
