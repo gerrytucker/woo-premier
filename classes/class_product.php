@@ -212,8 +212,9 @@ class Woo_Product {
 
     if ( $product = new WC_Product($product_id) ) {
       $product->set_stock_quantity($new_stock_quantity);
+      $product->save();
     }
 
-    return get_product($product_id);
+    return $this->get_product($product_id);
   }
 }

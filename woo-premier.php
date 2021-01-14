@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name:       WooCommerce API Client for Scratby Premier
  * Plugin URI:        https://scratbygardencentre.com/wp/plugins/woo-nppp2u
@@ -12,6 +11,8 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       woo-premier
  * Domain Path:       /languages
+ * WC requires at least: 4.0.0
+ * WC tested up to: 4.9.0
  */
 require_once('woocommerce-api.php');
 require_once('classes/class_product.php');
@@ -101,8 +102,8 @@ class Woo_Premier {
 
 		// Update product stock quantity
 		register_rest_route( self::API_VERSION, 'products/stock/(?P<id>\d+)', array(
-			'methods'	=> 'PUT',
-			'callback'	=> array('Woo_Premier', 'woo_update_product_qty/(?P<id>\d+)'),
+			'methods'	=> 'POST',
+			'callback'	=> array('Woo_Premier', 'woo_update_stock_qty'),
 			'args' => array('qty')
 		));
 
@@ -178,11 +179,11 @@ class Woo_Premier {
 	/**
 	 * Update product stock quantity
 	 *
-   * @since 2.3.0
+   * @since 2.7.0
 	 * @param WP_REST_Request $request
 	 * @return void
 	 */
-	static function woo_update_product_qty( WP_REST_Request $request ) {
+	static function woo_update_stock_qty( WP_REST_Request $request ) {
 
 		$woo = new Woo_Product();
 
@@ -190,7 +191,7 @@ class Woo_Premier {
 		$new_stock_quantity = $request['qty'];
 
 		if ($products = $woo->update_product_qty($product_id, $new_stock_quantity) ) {
-			return new WP_REST_Response( $product, 200 );
+			return new WP_REST_Response( $products, 200 );
 		} else {
 			// return an 404 empty result set
 			return new WP_REST_Response( array(), 404 );
